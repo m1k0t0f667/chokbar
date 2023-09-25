@@ -1,18 +1,18 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View,Button } from 'react-native'
 import React from 'react'
 import QRCode from "../../assets/QRCode.svg"
 
-const Button = () => {
+const ButtonCustom = () => {
   return (
     <View style={styles.container}>
-        <QRCode height={50} width={50}/>
+        <QRCode height={20} width={20}/>
         <Text style={styles.texte}>Buttohjdhzdn</Text>
     
     </View>
   )
 }
 
-export default Button
+export default ButtonCustom
 
 const styles = StyleSheet.create({
     container:{
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"center",
         backgroundColor:"black",
-        padding:"10px",
+        width:"30",
+        height:55,
         alignItems:"center",
         
        
