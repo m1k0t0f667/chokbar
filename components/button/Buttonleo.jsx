@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
-import Vector from '../assets/QRCode.svg';
-import theme from '../theme';
+import Vector from '../../assets/qrcode_white.svg';
+import theme from '../../theme';
 
 export function Buttonleo(props) {
   const classes = {
