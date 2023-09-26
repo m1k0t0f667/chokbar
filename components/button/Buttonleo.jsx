@@ -1,23 +1,18 @@
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import Vector from '../../assets/qrcode_white.svg';
+import QRCodeWhite from '../../assets/qrcode_white.svg';
+import QRCodeBlack from '../../assets/qrcode_black.svg';
 import theme from '../../theme';
 
 export function Buttonleo(props) {
-  const classes = {
-    root: [
-      styles.root,
-      props.property1 === 'Active' && styles.rootProperty1Active,
-    ],
-    scannezEtGagnez: [
-      styles.scannezEtGagnez,
-      props.property1 === 'Active' && styles.scannezEtGagnezProperty1Active,
-    ],
-  };
+  const isActive = props.property1 === 'Active';
+
+  const QRCodeIcon = isActive ? QRCodeBlack : QRCodeWhite;
 
   return (
-    <View style={classes.root}>
-      <Vector />
-      <Text style={classes.scannezEtGagnez}>
+    <View style={[styles.root, isActive && styles.rootProperty1Active]}>
+      <QRCodeIcon style={styles.qrIcon} />
+      <Text style={[styles.scannezEtGagnez, isActive && styles.scannezEtGagnezProperty1Active]}>
         Scannez et gagnez
       </Text>
     </View>
@@ -45,6 +40,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 60,
   },
+  qrIcon: {
+    marginRight: 10, // 10px padding between SVG and text
+  },
   rootProperty1Active: {
     backgroundColor: theme.colors.principalOrange,
   },
@@ -54,8 +52,6 @@ const styles = StyleSheet.create({
     fontSize: 27.6,
     fontStyle: 'normal',
     fontWeight: '400',
-    lineHeight: 27.6,
-    letterSpacing: -0.552,
   },
   scannezEtGagnezProperty1Active: {
     color: '#000',
