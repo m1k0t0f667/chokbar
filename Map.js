@@ -1,18 +1,20 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
-
+import * as Location from 'expo-location';
+import locationPin from './assets/PinLocation.png'
 import barsData from './DataBar.json';
 import greenMarker from './assets/Green.png';
 import yellowMarker from './assets/Yellow.png';
 import redMarker from './assets/Red.png';
-
+import ClusteredMapView from "react-native-maps-super-cluster";
 export default function Map() {
   const mapRef = useRef(null);
   const [bars, setBars] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedBar, setSelectedBar] = useState(null);
+  const [location, setLocation] = useState(null);
   const [region, setRegion] = useState({
     latitude: (barsData[0]?.lat) || 45.76,
     longitude: (barsData[0]?.lgn) || 4.8289,
@@ -40,6 +42,19 @@ export default function Map() {
       setSearchResults([]);
     }
   }, [searchQuery]);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.error('Permission to access location was denied');
+        return;
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation.coords);
+    })();
+  }, []);
 
   const getMarkerImage = (value) => {
     if (value <= 2) {
@@ -94,6 +109,15 @@ export default function Map() {
             </Callout>
           </Marker>
         ))}
+        {location && (
+          <Marker 
+            coordinate={{ latitude: location.latitude, longitude: location.longitude }}
+            title="Ma position"
+            
+          >
+            <Image source={locationPin} style={styles.LocationStyle}/>
+          </Marker>
+        )}
       </MapView>
 
       <View style={styles.searchContainer}>
@@ -113,7 +137,7 @@ export default function Map() {
         )}
       </View>
     </View>
-  );r
+  );
 }
 
 const styles = StyleSheet.create({
@@ -165,5 +189,11 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     margin: 1
+
+  },
+  LocationStyle: {
+    width: 40,
+    height: 50
   }
+  
 });
