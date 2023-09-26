@@ -7,10 +7,11 @@ import Menu from "./pages/menu";
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* <MainPage /> */}
       <Menu />
       <View style={styles.buttonContainer}>
       </View>
+      <MainPage />
+
       <StatusBar style="auto" />
     </View>
   );
