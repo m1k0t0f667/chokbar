@@ -7,8 +7,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <MainPage />
-      <View style={styles.buttonContainer}>
-      </View>
       <StatusBar style="auto" />
     </View>
   );
