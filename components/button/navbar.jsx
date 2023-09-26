@@ -3,7 +3,7 @@ import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image} from 'rea
 import Legende from '../button/legende';
 import Menu from '../button/menu';
 import Hot from '../button/hot';
-import { Buttonleo } from '../button/Buttonleo';
+import { Qrcode } from './qrcode';
 import Croix from "../../assets/Croix1.png"
 
 export function NavBar() {
@@ -45,8 +45,8 @@ export function NavBar() {
           <Hot property1={activeButton === 'Hot' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => setActiveButton('Buttonleo')}>
-        <Buttonleo property1={activeButton === 'Buttonleo' ? "Active" : "Unactive"}/>
+      <TouchableOpacity onPress={() => setActiveButton('Qrcode')}>
+        <Qrcode property1={activeButton === 'Qrcode' ? "Active" : "Unactive"}/>
       </TouchableOpacity>
     </View>
   );
@@ -55,11 +55,11 @@ export function NavBar() {
 const styles = StyleSheet.create({
   root: {
     width: 390,
-    paddingBottom: 0,
+    paddingBottom: 20,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 20,
+    gap: 15,
     backgroundColor: 'transparent',
   },
   frame17: {
