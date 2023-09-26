@@ -1,14 +1,24 @@
+import React from 'react';
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
+<<<<<<< HEAD
 import Button from "./components/button/Button";
 import Map from "./Map";
+=======
+import { Buttonleo } from "./components/button/Buttonleo";
+import Map from './Map';
+>>>>>>> main
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Map />
       <View style={styles.buttonContainer}>
+<<<<<<< HEAD
         <Button />
+=======
+        <Buttonleo/>
+>>>>>>> main
       </View>
       <StatusBar style="auto" />
     </View>
@@ -18,6 +28,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+<<<<<<< HEAD
     backgroundColor: "#fff",
   },
   buttonContainer: {
@@ -26,5 +37,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: 'center',
+=======
+    backgroundColor: '#fff',
+>>>>>>> main
   },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 50, 
+    alignSelf: 'center'
+  }
 });
