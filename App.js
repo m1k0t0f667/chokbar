@@ -1,15 +1,12 @@
 import React from 'react';
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { NavBar } from "./components/button/navbar";
-import { StyleSheet, View } from "react-native";
-import Map from './Map';
+import MainPage from "./pages/mainPage";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <NavBar />
-      <Map />
+      <MainPage />
       <View style={styles.buttonContainer}>
       </View>
       <StatusBar style="auto" />
