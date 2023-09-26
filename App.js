@@ -1,15 +1,16 @@
+import React from 'react';
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import Button from "./components/button/Button";
+import { StyleSheet, View } from "react-native";
 import { Buttonleo } from "./components/button/Buttonleo";
-
+import Map from './Map';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Button />
-      <Buttonleo property1="Active" />
+      <Map />
+      <View style={styles.buttonContainer}>
+        <Buttonleo/>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -18,8 +19,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
   },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 50, 
+    alignSelf: 'center'
+  }
 });
