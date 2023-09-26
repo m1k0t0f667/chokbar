@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import QRCode from "../../assets/QRCode.svg"
+import QRCode from "../../assets/qrcode_black.svg"
 
 const Button = () => {
   return (
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"center",
         backgroundColor:"black",
-        padding:"10px",
+        padding: 10,
         alignItems:"center",
         
        
