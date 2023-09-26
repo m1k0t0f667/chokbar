@@ -1,3 +1,4 @@
+import React from 'react'; // You should import React when working with JSX.
 import { StyleSheet, View, Text } from 'react-native';
 import Vector from '../../assets/qrcode_white.svg';
 import theme from '../../theme';
