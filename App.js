@@ -2,11 +2,13 @@ import React from 'react';
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import MainPage from "./pages/mainPage";
+import Menu from "./pages/menu";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <MainPage />
+      {/* <MainPage /> */}
+      <Menu />
       <View style={styles.buttonContainer}>
       </View>
       <StatusBar style="auto" />
@@ -17,7 +19,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    justifyContent: 'center',
+    backgroundColor: '#f2f2f2',
   },
   buttonContainer: {
     position: 'absolute',
