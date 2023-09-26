@@ -1,26 +1,30 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { Color, FontFamily, FontSize } from '../../GlobalStyles';
 import QRCodeWhite from '../../assets/qrcode_white.svg';
 import QRCodeBlack from '../../assets/qrcode_black.svg';
 import theme from '../../theme';
 
-export function Buttonleo(props) {
+export function Qrcode(props) {
   const isActive = props.property1 === 'Active';
 
   const QRCodeIcon = isActive ? QRCodeBlack : QRCodeWhite;
 
   return (
     <View style={[styles.root, isActive && styles.rootProperty1Active]}>
-      <QRCodeIcon style={styles.qrIcon} />
-      <Text style={[styles.scannezEtGagnez, isActive && styles.scannezEtGagnezProperty1Active]}>
-        Scannez et gagnez
-      </Text>
+      <View style={styles.qrContainer}>
+      <QRCodeIcon style={[styles.qrIcon, { transform: [{ scale: 0.8 }] }]} />        
+        <Text style={[styles.scannezEtGagnez, isActive && styles.scannezEtGagnezProperty1Active]}>
+          Scannez et gagnez
+        </Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
+    width:320,
     display: 'flex',
     height: 55,
     justifyContent: 'center',
@@ -35,10 +39,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 2,
-    flexDirection: 'row',
-    paddingVertical: 0,
-    paddingHorizontal: 30,
     borderRadius: 60,
+  },
+  qrContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   qrIcon: {
     marginRight: 10, // 10px padding between SVG and text
@@ -48,8 +53,8 @@ const styles = StyleSheet.create({
   },
   scannezEtGagnez: {
     color: '#FFF',
-    fontFamily: 'Prompt',
-    fontSize: 27.6,
+    fontFamily: FontFamily.promptRegular,    
+    fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '400',
   },

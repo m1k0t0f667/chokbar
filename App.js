@@ -1,17 +1,26 @@
 import React from 'react';
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import { useFonts } from "expo-font";
 import MainPage from "./pages/mainPage";
+import LegendeDesc from "./pages/map-key";
 import Menu from "./pages/menu";
 
 export default function App() {
+  const [fontsLoaded, error] = useFonts({
+    "Prompt-Regular": require("./assets/fonts/Prompt-Regular.ttf"),
+    "Prompt-Medium": require("./assets/fonts/Prompt-Medium.ttf"),
+  });
+
+  if (!fontsLoaded && !error) {
+    return null;
+  }
+  
   return (
     <View style={styles.container}>
-      <Menu />
       <View style={styles.buttonContainer}>
       </View>
       <MainPage />
-
       <StatusBar style="auto" />
     </View>
   );
