@@ -33,6 +33,7 @@ export function NavBar() {
         </View>
       </Modal>
         <TouchableOpacity onPress={() => {setActiveButton('Legende'),setModalVisible(true)}}>
+
           <Legende property1={activeButton === 'Legende' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
       </View>
@@ -121,4 +122,4 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',}
-});
+
