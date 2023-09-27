@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from "react-native";
 import { NavBar } from "../components/button/navbar";
 import Map from '../Map';
+import Register from '../Login-Register/Register';
+import Login from '../Login-Register/Login';
 
 const MainPage = () => {
   return (
