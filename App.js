@@ -1,10 +1,8 @@
-import React from 'react';
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import MainPage from "./pages/mainPage";
-import LegendeDesc from "./pages/map-key";
-import Menu from "./pages/menu";
 
 export default function App() {
   const [fontsLoaded, error] = useFonts({
@@ -18,8 +16,6 @@ export default function App() {
   
   return (
     <View style={styles.container}>
-      <View style={styles.buttonContainer}>
-      </View>
       <MainPage />
       <StatusBar style="auto" />
     </View>
@@ -29,12 +25,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#f2f2f2',
+    justifyContent: "center",
+    backgroundColor: "#f2f2f2",
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: 50, 
-    alignSelf: 'center'
-  }
+    position: "absolute",
+    bottom: 50,
+    alignSelf: "center",
+  },
 });
