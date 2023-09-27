@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import { Color, FontFamily, FontSize } from '../GlobalStyles';
 import Account from '../assets/menu/account';
 import Fidelite from '../assets/menu/fidelite';
 import Mentions from '../assets/menu/mentions';
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
       flexShrink: 0,
       flexBasis: 0,
       color: theme.colors.Primary,
-      fontFamily: 'Prompt',
+      fontFamily: FontFamily.promptRegular,    
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '400',
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
       flexShrink: 0,
       flexBasis: 0,
       color: theme.colors.Primary,
-      fontFamily: 'Prompt',
+      fontFamily: FontFamily.promptRegular,    
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '400',
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
       flexShrink: 0,
       flexBasis: 0,
       color: theme.colors.Primary,
-      fontFamily: 'Prompt',
+      fontFamily: FontFamily.promptRegular,    
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '400',
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
       flexShrink: 0,
       flexBasis: 0,
       color: theme.colors.Primary,
-      fontFamily: 'Prompt',
+      fontFamily: FontFamily.promptRegular,    
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '400',

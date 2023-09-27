@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Color, FontFamily, FontSize } from '../../GlobalStyles';
 
 const ScoreFidelite = () => {
   return (
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     left: 15,  // Ajustement pour se rapprocher du côté gauche
     width: 241,
     color: '#000',
-    fontFamily: 'Prompt',
+    fontFamily: FontFamily.promptRegular,    
     fontSize: 18,
     zIndex: 3,
   },
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 16,
     color: '#000',
-    fontFamily: 'Prompt',
+    fontFamily: FontFamily.promptRegular,    
   },
 });
 
