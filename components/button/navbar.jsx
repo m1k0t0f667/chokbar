@@ -1,11 +1,12 @@
 import React, { useState } from 'react'; // import useState
 import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image} from 'react-native'; // import TouchableOpacity
 import Legende from '../button/legende';
-import MenuB from '../button/menu';
+import Button from '../button/menu';
 import Hot from '../button/hot';
-import { Buttonleo } from '../button/Buttonleo';
+import { Qrcode } from './qrcode';
 import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
+
 export function NavBar() {
   const [activeButton, setActiveButton] = useState(''); // initialize with an empty string
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -40,6 +41,7 @@ export function NavBar() {
         </TouchableOpacity>
       </View>
       <View style={styles.frame14}>
+        
       <Modal
         animationType="slide"
         transparent={true}
@@ -60,8 +62,9 @@ export function NavBar() {
         </View>
         </View>
       </Modal>
-        <TouchableOpacity onPress={() => {setActiveButton('Menu'),setModalVisible1(true)}}>
-          <MenuB property1={activeButton === 'Menu' ? "Active" : "Unactive"}/>
+
+        <TouchableOpacity onPress={() => {setActiveButton('MenuButton'),setModalVisible1(true)}}>
+          <MenuButton property1={activeButton === 'MenuButton' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
         <Modal
         animationType="slide"
@@ -87,6 +90,7 @@ export function NavBar() {
           <Hot property1={activeButton === 'Hot' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
       </View>
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -107,8 +111,8 @@ export function NavBar() {
         </View>
         </View>
       </Modal>
-      <TouchableOpacity onPress={() => {setActiveButton('Buttonleo'),setModalVisible3(true)}}>
-        <Buttonleo property1={activeButton === 'Buttonleo' ? "Active" : "Unactive"}/>
+      <TouchableOpacity onPress={() => {setActiveButton('Qrcode'),setModalVisible3(true)}}>
+        <Qrcode property1={activeButton === 'Qrcode' ? "Active" : "Unactive"}/>
       </TouchableOpacity>
     </View>
   );
@@ -117,11 +121,11 @@ export function NavBar() {
 const styles = StyleSheet.create({
   root: {
     width: 390,
-    paddingBottom: 0,
+    paddingBottom: 20,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 20,
+    gap: 15,
     backgroundColor: 'transparent',
   },
   frame17: {

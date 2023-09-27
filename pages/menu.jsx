@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '400',
+      lineHeight: 24,
     },
     menuItem: {
       width: 320,
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '400',
-      lineHeight: '24px /* 150% */',
+      lineHeight: 24,
     },
     menuItem2: {
       width: 320,
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '400',
-      lineHeight: '24px /* 150% */',
+      lineHeight: 24,
     },
     menuItem3: {
       width: 320,
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: '400',
-      lineHeight: '24px /* 150% */',
+      lineHeight: 24,
     },
     menuItem4: {
       width: 320,
