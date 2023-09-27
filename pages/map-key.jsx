@@ -1,15 +1,20 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Color, FontFamily, FontSize } from '../GlobalStyles';
-import MaskGroup from '../assets/legende/mask-group';
-import MaskGroup1 from '../assets/legende/mask-group1';
-import MaskGroup2 from '../assets/legende/mask-group2';
+import MaskGroup from '../assets/legende/mask-group.png';
+import MaskGroup1 from '../assets/legende/mask-group1.png';
+import MaskGroup2 from '../assets/legende/mask-group2.png';
+import { Image } from 'react-native';
 
 const LegendeDesc = () => {
   return (
     <View style={styles.legendeDesc}>
+      <Text style={styles.laffluenceDesBars}>
+        *L’affluence des bars est calculée en fonction de la position en temps
+        réel des utilisateurs de Chok’Bar.
+      </Text>
       <View style={styles.maskGroupParent}>
-        <MaskGroup />
+        <Image source={MaskGroup} />  
         <View style={[styles.laSalleEstPleineCraquerParent, styles.parentLayout]}>
           <Text style={[styles.laSalleEst, styles.laSalleEstTypo]}>
             La salle est pleine à craquer, sors tes meilleurs pas de danse !
@@ -20,18 +25,18 @@ const LegendeDesc = () => {
         </View>
       </View>
       <View style={[styles.maskGroupGroup, styles.maskGroupLayout]}>
-        <MaskGroup1 />
+        <Image source={MaskGroup1} />
         <View style={[styles.ilCommenceYAvoirDuMondeParent, styles.commenceLayout]}>
           <Text style={[styles.ilCommence, styles.commenceLayout]}>
             Il commence à y avoir du monde, prends vite les dernières places !
           </Text>
-          <Text style={[styles.moyenneAffluence, styles.commenceLayout]}>
+          <Text style={[styles.moyenneAffluence, styles.affluenceTypo]}>
             Moyenne affluence
           </Text>
         </View>
       </View>
       <View style={[styles.maskGroupContainer, styles.maskGroupLayout]}>
-        <MaskGroup2 />
+        <Image source={MaskGroup2} />
         <View style={[styles.ilCommenceYAvoirDuMondeParent, styles.commenceLayout]}>
           <Text style={[styles.ilCommence, styles.commenceLayout]}>
             Le bar est calme, parfait pour une partie de jeux de société !
@@ -46,9 +51,40 @@ const LegendeDesc = () => {
 };
 
 const styles = StyleSheet.create({
+  laffluenceDesBars: {
+    marginLeft: -166,
+    top: 618,
+    left: "50%",
+    fontSize: 12,
+    fontStyle: "italic",
+    fontWeight: "200",
+    fontFamily: FontFamily.promptExtraLightItalic,
+    textAlign: "center",
+    width: 340,
+    color: Color.colorBlack,
+    position: "absolute",
+  },
+  maskGroupParent: {
+    flexDirection: 'row', // aligns children horizontally
+    alignItems: 'center', // vertically aligns children in the center
+    top: 370,
+    width: 340,
+    height: 150,
+    left: 20,
+    position: 'absolute',
+  },
+  maskGroupGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    top: 185,
+  },
+  maskGroupContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },  
   parentLayout: {
     height: 84,
-    left: 155,
+    left: 170,
   },
   laSalleEstTypo: {
     textAlign: 'left',
@@ -63,18 +99,16 @@ const styles = StyleSheet.create({
   affluenceTypo: {
     fontFamily: FontFamily.promptMedium,
     fontWeight: '500',
-    lineHeight: 19,
+    lineHeight: 22, // Ensure this is large enough. Adjust as necessary.
     letterSpacing: -0.4,
     fontSize: FontSize.size_lgi,
-    top: 0,
     textAlign: 'left',
     color: Color.colorBlack,
-    left: 0,
   },
   maskGroupLayout: {
     height: 140,
     width: 330,
-    left: 30,
+    left: 20,
     position: 'absolute',
   },
   commenceLayout: {
@@ -94,13 +128,6 @@ const styles = StyleSheet.create({
     width: 185,
     position: 'absolute',
   },
-  maskGroupParent: {
-    top: 370,
-    width: 340,
-    height: 150,
-    left: 30,
-    position: 'absolute',
-  },
   ilCommence: {
     textAlign: 'left',
     color: Color.colorBlack,
@@ -108,27 +135,12 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     letterSpacing: -0.3,
     fontSize: FontSize.size_base,
-    left: 0,
     top: 30,
-  },
-  moyenneAffluence: {
-    fontFamily: FontFamily.promptMedium,
-    fontWeight: '500',
-    lineHeight: 19,
-    letterSpacing: -0.4,
-    fontSize: FontSize.size_lgi,
-    top: 0,
-    textAlign: 'left',
-    color: Color.colorBlack,
-    left: 0,
   },
   ilCommenceYAvoirDuMondeParent: {
     top: 28,
     height: 84,
-    left: 155,
-  },
-  maskGroupGroup: {
-    top: 185,
+    left: 170,
   },
   legendeDesc: {
     backgroundColor: '#fff',
@@ -137,12 +149,5 @@ const styles = StyleSheet.create({
     height: 520,
   },
 });
-//     <View>
-//       <MaskGroup />
 
-//       <MaskGroup1 />
-
-//       <MaskGroup2 />
-//     </View>
-// )}
 export default LegendeDesc;
