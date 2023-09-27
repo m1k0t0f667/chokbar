@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; // import useState
 import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image} from 'react-native'; // import TouchableOpacity
 import Legende from '../button/legende';
-import Menu from '../button/menu';
+import MenuButton from '../button/menu';
 import Hot from '../button/hot';
 import { Qrcode } from './qrcode';
 import Croix from "../../assets/Croix1.png"
@@ -38,8 +38,8 @@ export function NavBar() {
         </TouchableOpacity>
       </View>
       <View style={styles.frame14}>
-        <TouchableOpacity onPress={() => setActiveButton('Menu')}>
-          <Menu property1={activeButton === 'Menu' ? "Active" : "Unactive"}/>
+        <TouchableOpacity onPress={() => setActiveButton('MenuButton')}>
+          <MenuButton property1={activeButton === 'MenuButton' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setActiveButton('Hot')}>
           <Hot property1={activeButton === 'Hot' ? "Active" : "Unactive"}/>
