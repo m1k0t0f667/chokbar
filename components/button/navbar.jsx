@@ -4,7 +4,7 @@ import Legende from '../button/legende';
 import MenuButton from './menuButton';
 
 import Hot from '../button/hot';
-import { Qrcode } from './qrcode';
+import { Qrcode } from './qrcodeButton';
 import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
 import { useFonts } from 'expo-font';
