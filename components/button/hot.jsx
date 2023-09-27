@@ -2,8 +2,8 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import EllipseWhite from '../../assets/ellipse_white.svg';
 import EllipseOrange from '../../assets/ellipse_orange.svg';
-import MapBlack from '../../assets/map_black.svg';
-import MapWhite from '../../assets/map_white.svg';
+import HotBlack from '../../assets/hot_black.svg';
+import HotWhite from '../../assets/hot_white.svg';
 
 const LegendeProperty1 = {
   Active: 'Active',
@@ -14,12 +14,12 @@ function Legende(props) {
   const isActive = props.property1 === LegendeProperty1.Active;
 
   const Ellipse = isActive ? EllipseOrange : EllipseWhite;
-  const MapIcon = isActive ? MapWhite : MapBlack;
+  const HotIcon = isActive ? HotWhite : HotBlack;
 
   return (
     <View style={[styles.root, isActive ? styles.rootProperty1Active : styles.rootProperty1Unactive]}>
       <Ellipse />
-      <MapIcon style={styles.mapIcon} />
+      <HotIcon style={styles.hotIcon} />
     </View>
   );
 }
@@ -52,7 +52,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2,
   },
-  mapIcon: {
+  hotIcon: {
+    width: 25,
+    height: 33,
     position: 'absolute',
   }
 });
