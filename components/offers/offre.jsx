@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Color, FontFamily, FontSize } from '../../GlobalStyles';
-import theme from '../../theme';
 
 export default function Offre() {
   return (
@@ -83,37 +82,27 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
     paddingHorizontal: 15, // Agrandir le padding horizontal pour que le bandeau soit plus gros
-    paddingVertical: 4,   // Agrandir le padding vertical pour que le bandeau soit plus gros
+    paddingVertical: 2,   // Agrandir le padding vertical pour que le bandeau soit plus gros
     alignItems: 'center',
     justifyContent: 'center',
   },
   exempleDoffre: {
-    fontSize: 14, // Ajuster la taille de la police pour qu'elle soit plus grande
+    fontSize: 12, // Ajuster la taille de la police pour qu'elle soit plus grande
     color: '#FFF',
     fontFamily: FontFamily.promptRegular,    
-  },
-
-  png: {
-    position: 'absolute',
-    top: 40,
-    right: 15,
-    fontSize: 18,
-    fontFamily: 'Montserrat',
-    color: '#131111',
   },
   ratingCircle: {
     position: 'absolute',
     top: 119,
     right: 15,
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     borderRadius: 20,
     backgroundColor: '#D0D5D9',
     alignItems: 'center',
     justifyContent: 'center',
   },
   ratingText: {
-    fontSize: 14,
-    color: '#000000',
+    fontSize: 12,
   },
 });

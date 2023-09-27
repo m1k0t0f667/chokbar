@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Color, FontFamily, FontSize } from '../../GlobalStyles';
 
-const ScoreFidelite = () => {
+const Fidelite = () => {
   return (
     <View style={styles.root}>
       <View style={styles.rectangle10} />
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     right: 15, // Ajustement pour se rapprocher du côté droit
-    width: 40, // Taille du cercle
-    height: 40,
+    width: 25, // Taille du cercle
+    height: 25,
     borderRadius: 20,
     backgroundColor: '#E2E2E2',
     justifyContent: 'center',
@@ -71,10 +71,10 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   ratingText: {
-    fontSize: 16,
+    fontSize: 12,
     color: '#000',
     fontFamily: FontFamily.promptRegular,    
   },
 });
 
-export default ScoreFidelite;
+export default Fidelite;
