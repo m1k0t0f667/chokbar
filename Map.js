@@ -2,15 +2,16 @@ import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import * as Location from 'expo-location';
-import locationPin from './assets/PinLocation.png'
+import locationPin from './assets/PinLocation.png';
 import barsData from './DataBar.json';
 import greenMarker from './assets/Green.png';
 import yellowMarker from './assets/Yellow.png';
 import redMarker from './assets/Red.png';
-import ClusteredMapView from "react-native-maps-super-cluster";
 export default function Map() {
   const mapRef = useRef(null);
+  const markerRefs = useRef({});
   const [bars, setBars] = useState([]);
+  const [groupedMarkers, setGroupedMarkers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedBar, setSelectedBar] = useState(null);
@@ -23,15 +24,11 @@ export default function Map() {
   });
 
   useEffect(() => {
-    try {
-      const barsWithRandomValue = barsData.map(bar => ({
-        ...bar,
-        randomValue: Math.floor(Math.random() * 6) + 1
-      }));
-      setBars(barsWithRandomValue);
-    } catch (error) {
-      console.error('Erreur lors du chargement des données JSON:', error);
-    }
+    const barsWithRandomValue = barsData.map(bar => ({
+      ...bar,
+      randomValue: Math.floor(Math.random() * 6) + 1
+    }));
+    setBars(barsWithRandomValue);
   }, []);
 
   useEffect(() => {
@@ -50,11 +47,44 @@ export default function Map() {
         console.error('Permission to access location was denied');
         return;
       }
-
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation.coords);
     })();
   }, []);
+
+  useEffect(() => {
+    groupMarkersByProximity();
+  }, [region, bars]);
+
+  const groupMarkersByProximity = () => {
+   
+    const proximity = region.latitudeDelta / 10;
+
+    let groups = [];
+    let usedBars = [];
+
+    bars.forEach((bar, index) => {
+      if (!usedBars.includes(index)) {
+        let group = [bar];
+
+        bars.forEach((innerBar, innerIndex) => {
+          if (
+            index !== innerIndex &&
+            !usedBars.includes(innerIndex) &&
+            Math.abs(bar.lat - innerBar.lat) < proximity &&
+            Math.abs(bar.lgn - innerBar.lgn) < proximity
+          ) {
+            group.push(innerBar);
+            usedBars.push(innerIndex);
+          }
+        });
+
+        groups.push(group);
+      }
+    });
+
+    setGroupedMarkers(groups);
+  };
 
   const getMarkerImage = (value) => {
     if (value <= 2) {
@@ -66,6 +96,8 @@ export default function Map() {
     }
   };
 
+
+  
   const handleBarSelectFromSearch = (bar) => {
     setSearchQuery('');
     setSelectedBar(bar);
@@ -75,11 +107,15 @@ export default function Map() {
       latitudeDelta: 0.00922,
       longitudeDelta: 0.00421,
     });
+    
+    
     setTimeout(() => {
-      bar.marker.showCallout();
-    }, 500); 
+      if (markerRefs.current[bar.Nom]) {
+        markerRefs.current[bar.Nom].showCallout();
+      }
+    });
   };
-
+  
   const renderSearchItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleBarSelectFromSearch(item)}>
       <Text style={styles.searchItem}>{item.Nom}</Text>
@@ -94,26 +130,43 @@ export default function Map() {
         region={region}
         onRegionChangeComplete={setRegion}
       >
-        {bars.map((bar, index) => (
-          <Marker
-            key={index}
-            coordinate={{ latitude: bar.lat, longitude: bar.lgn }}
-            ref={ref => { bar.marker = ref; }}
-          >
-            <Image source={getMarkerImage(bar.randomValue)} style={styles.markerImage} />
-            <Callout>
-              <View style={styles.calloutContainer}>
-                <Text>Nom : {bar.Nom}</Text>
-                <Text>Valeur aléatoire : {bar.randomValue}</Text>
+        {groupedMarkers.map((group, index) => (
+          group.length > 1 ? (
+            <Marker
+              key={index}
+              coordinate={{ 
+                latitude: group.reduce((sum, bar) => sum + bar.lat, 0) / group.length,
+                longitude: group.reduce((sum, bar) => sum + bar.lgn, 0) / group.length
+              }}
+            >
+              <View style={{ 
+                backgroundColor: 'gray', 
+                borderRadius: 15, 
+                padding: 10 
+              }}>
+                <Text style={{ color: 'white' }}>{group.length}</Text>
               </View>
-            </Callout>
-          </Marker>
+            </Marker>
+          ) : (
+            <Marker
+              key={index}
+              ref={ref => markerRefs.current[group[0].Nom] = ref} // Ajout de cette ligne
+              coordinate={{ latitude: group[0].lat, longitude: group[0].lgn }}
+            >
+              <Image source={getMarkerImage(group[0].randomValue)} style={styles.markerImage} />
+              <Callout>
+                <View style={styles.calloutContainer}>
+                  <Text>Nom : {group[0].Nom}</Text>
+                  <Text>Valeur aléatoire : {group[0].randomValue}</Text>
+                </View>
+              </Callout>
+            </Marker>
+          )
         ))}
         {location && (
           <Marker 
             coordinate={{ latitude: location.latitude, longitude: location.longitude }}
             title="Ma position"
-            
           >
             <Image source={locationPin} style={styles.LocationStyle}/>
           </Marker>
@@ -127,11 +180,11 @@ export default function Map() {
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
-        {searchQuery && (
+         {searchQuery && (
           <FlatList
             data={searchResults}
             renderItem={renderSearchItem}
-            keyExtractor={(item) => item.Nom}
+            keyExtractor={(item) => item.Nom.toString()}  // Modification ici
             style={styles.searchResults}
           />
         )}
@@ -139,7 +192,6 @@ export default function Map() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
