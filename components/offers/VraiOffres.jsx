@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import { Color, FontFamily, FontSize } from '../../GlobalStyles';
 import theme from '../../theme';
 
 export default function Offre() {
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     bottom: 16,
     left: 17,
     fontSize: 18,
-    fontFamily: 'Prompt',
+    fontFamily: FontFamily.promptRegular,    
     color: '#000',
   },
   offre: {
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
   exempleDoffre: {
     fontSize: 14, // Ajuster la taille de la police pour qu'elle soit plus grande
     color: '#FFF',
-    fontFamily: 'Prompt',
+    fontFamily: FontFamily.promptRegular,    
   },
 
   png: {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; // import useState
 import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image} from 'react-native'; // import TouchableOpacity
 import Legende from '../button/legende';
-import Button from '../button/menu';
+import MenuButton from './menuButton';
 import Hot from '../button/hot';
 import { Qrcode } from './qrcode';
 import Croix from "../../assets/Croix1.png"
