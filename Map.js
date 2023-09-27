@@ -7,6 +7,7 @@ import barsData from './DataBar.json';
 import greenMarker from './assets/Green.png';
 import yellowMarker from './assets/Yellow.png';
 import redMarker from './assets/Red.png';
+
 export default function Map() {
   const mapRef = useRef(null);
   const markerRefs = useRef({});
