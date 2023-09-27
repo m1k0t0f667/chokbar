@@ -117,11 +117,12 @@ export default function Map() {
     });
   };
   
-  const renderSearchItem = ({ item }) => (
+const renderSearchItem = ({ item, index }) => (
     <TouchableOpacity onPress={() => handleBarSelectFromSearch(item)}>
       <Text style={styles.searchItem}>{item.Nom}</Text>
     </TouchableOpacity>
   );
+
 
   return (
     <View style={styles.container}>
@@ -185,7 +186,7 @@ export default function Map() {
           <FlatList
             data={searchResults}
             renderItem={renderSearchItem}
-            keyExtractor={(item) => item.Nom.toString()}  // Modification ici
+            keyExtractor={(item, index) => `${item.Nom}-${index}`}  // Modification ici
             style={styles.searchResults}
           />
         )}
