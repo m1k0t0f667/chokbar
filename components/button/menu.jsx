@@ -5,21 +5,21 @@ import EllipseOrange from '../../assets/ellipse_orange.svg';
 import MenuBlack from '../../assets/menu_black.svg';
 import MenuWhite from '../../assets/menu_white.svg';
 
-const LegendeProperty1 = {
+const MenuButtonProperty1 = {
   Active: 'Active',
   Unactive: 'Unactive',
 };
 
-function Legende(props) {
-  const isActive = props.property1 === LegendeProperty1.Active;
+function MenuButton(props) {
+  const isActive = props.property1 === MenuButtonProperty1.Active;
 
   const Ellipse = isActive ? EllipseOrange : EllipseWhite;
-  const MenuIcon = isActive ? MenuWhite : MenuBlack;
+  const MenuButtonIcon = isActive ? MenuWhite : MenuBlack;
 
   return (
     <View style={[styles.root, isActive ? styles.rootProperty1Active : styles.rootProperty1Unactive]}>
       <Ellipse />
-      <MenuIcon style={styles.menuIcon} />
+      <MenuButtonIcon style={styles.MenuButtonIcon} />
     </View>
   );
 }
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2,
   },
-  menuIcon: {
+  MenuButtonIcon: {
     position: 'absolute',
   }
 });
 
-export default Legende;
+export default MenuButton;
