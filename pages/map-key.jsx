@@ -14,7 +14,7 @@ const LegendeDesc = () => {
         réel des utilisateurs de Chok’Bar.
       </Text>
       <View style={styles.maskGroupParent}>
-        <Image source={MaskGroup} />  
+        <Image source={MaskGroup2} />  
         <View style={[styles.laSalleEstPleineCraquerParent, styles.parentLayout]}>
           <Text style={[styles.laSalleEst, styles.laSalleEstTypo]}>
             La salle est pleine à craquer, sors tes meilleurs pas de danse !
@@ -35,8 +35,8 @@ const LegendeDesc = () => {
           </Text>
         </View>
       </View>
-      <View style={[styles.maskGroupContainer, styles.maskGroupLayout]}>
-        <Image source={MaskGroup2} />
+      <View style={[styles.maskGroupContainer, styles.maskGroupLayout1]}>
+        <Image source={MaskGroup} />
         <View style={[styles.ilCommenceYAvoirDuMondeParent, styles.commenceLayout]}>
           <Text style={[styles.ilCommence, styles.commenceLayout]}>
             Le bar est calme, parfait pour une partie de jeux de société !
@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
   maskGroupParent: {
     flexDirection: 'row', // aligns children horizontally
     alignItems: 'center', // vertically aligns children in the center
-    top: 370,
+    top: 425,
     width: 340,
     height: 150,
-    left: 20,
     position: 'absolute',
+    left: -180,
   },
   maskGroupGroup: {
     flexDirection: 'row',
@@ -101,14 +101,22 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 22, // Ensure this is large enough. Adjust as necessary.
     letterSpacing: -0.4,
-    fontSize: FontSize.size_lgi,
+    fontSize: FontSize.size_lg,
     textAlign: 'left',
     color: Color.colorBlack,
   },
   maskGroupLayout: {
     height: 140,
     width: 330,
-    left: 20,
+    left: -180,
+    top: 230,
+    position: 'absolute',
+  },
+  maskGroupLayout1: {
+    height: 140,
+    width: 330,
+    left: -180,
+    top: 30,
     position: 'absolute',
   },
   commenceLayout: {
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 19,
     letterSpacing: -0.4,
-    fontSize: FontSize.size_lgi,
+    fontSize: FontSize.size_lg,
   },
   laSalleEstPleineCraquerParent: {
     top: 33,
