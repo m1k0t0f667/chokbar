@@ -3,6 +3,7 @@ export const FontFamily = {
   promptMedium: "Prompt-Medium",
   promptRegular: "Prompt-Regular",
   promptExtraLight: "Prompt-ExtraLight",
+  promptExtraLightItalic: "Prompt-ExtraLightItalic",
   interRegular: "Inter-Regular",
 };
 /* font sizes */
