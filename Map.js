@@ -1,15 +1,8 @@
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput, FlatList } from 'react-native';
-import MapView, { Marker, Callout } from 'react-native-maps';
-import * as Location from 'expo-location';
 import locationPin from './assets/PinLocation.png';
-import barsData from './DataBar.json';
-import greenMarker from './assets/Green.png';
-import yellowMarker from './assets/Yellow.png';
-import redMarker from './assets/Red.png';
 import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
-import locationPin from "./assets/PinLocation.png";
 import barsData from "./DataBar.json";
 import greenMarker from "./assets/Green.png";
 import yellowMarker from "./assets/Yellow.png";
