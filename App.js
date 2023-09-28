@@ -5,9 +5,12 @@ import { useFonts } from "expo-font";
 import Anim from "./Anim";
 
 import Routes from "./routes";
+import QrcodePage from "./pages/qrcode";
 
 export default function App() {
   const [fontsLoaded, error] = useFonts({
+    "Prompt-ExtraLightItalic": require("./assets/fonts/Prompt-ExtraLightItalic.ttf"),
+    "Prompt-ExtraLight": require("./assets/fonts/Prompt-ExtraLight.ttf"),
     "Prompt-Regular": require("./assets/fonts/Prompt-Regular.ttf"),
     "Prompt-Medium": require("./assets/fonts/Prompt-Medium.ttf"),
     "Bungee-Shade": require("./assets/fonts/BungeeShade-Regular.ttf"),
