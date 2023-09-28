@@ -11,7 +11,7 @@ import { useFonts } from 'expo-font';
 import Offres from '../../pages/offres';
 import { FideliteButton } from '../qrcode/fideliteButton';
 import Fidelite from '../offers/fidelite';
-import Legend from './legende'
+import LegendeDesc from '../../pages/map-key';
 
 export function NavBar() {
   
@@ -43,7 +43,7 @@ export function NavBar() {
                 <Text style={styles.modalText}>Légende</Text>
                 <Pressable style={{width:35}} onPress={() => {setModalVisible(!modalVisible),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
-            <View><Text><Legend/></Text></View>
+            <View><Text><LegendeDesc/></Text></View>
           </View>
         </View>
         </View>
