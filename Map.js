@@ -81,7 +81,7 @@ export default function Map() {
      return loc1.latitude === loc2.latitude && loc1.longitude === loc2.longitude;
    };
 
-   setInterval(getLocationAndSendToFirebase, 900); 
+   setInterval(getLocationAndSendToFirebase, 90000); 
 
 
 
