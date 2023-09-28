@@ -8,6 +8,7 @@ import {
   TextInput,
   FlatList,
 } from "react-native";
+
 import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
 import locationPin from "./assets/PinLocation.png";
@@ -70,6 +71,9 @@ export default function Map() {
   }, [region, bars]);
 
   let lastLocation = null;
+
+  const [filteredBar, setFilteredBar] = useState(null);
+
 
   const getLocationAndSendToFirebase = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -145,6 +149,8 @@ export default function Map() {
   const handleBarSelectFromSearch = (bar) => {
     setSearchQuery("");
     setSelectedBar(bar);
+    setFilteredBar(bar); 
+
     mapRef.current.animateToRegion({
       latitude: bar.lat,
       longitude: bar.lgn,
@@ -159,12 +165,14 @@ export default function Map() {
     });
   };
 
+
   const renderSearchItem = ({ item, index }) => (
     <TouchableOpacity onPress={() => handleBarSelectFromSearch(item)}>
       <Text style={styles.searchItem}>{item.Nom}</Text>
     </TouchableOpacity>
   );
 
+ 
   return (
     <View style={styles.container}>
       <MapView
@@ -173,46 +181,68 @@ export default function Map() {
         region={region}
         onRegionChangeComplete={setRegion}
       >
-        {groupedMarkers.map((group, index) =>
-          group.length > 1 ? (
-            <Marker
-              key={index}
-              coordinate={{
-                latitude:
-                  group.reduce((sum, bar) => sum + bar.lat, 0) / group.length,
-                longitude:
-                  group.reduce((sum, bar) => sum + bar.lgn, 0) / group.length,
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: "gray",
-                  borderRadius: 15,
-                  padding: 10,
+        {groupedMarkers.map((group, index) => {
+          if (filteredBar && group.some(b => b.Nom === filteredBar.Nom)) {
+            return (
+              <Marker
+                key={index}
+                ref={(ref) => (markerRefs.current[filteredBar.Nom] = ref)}
+                coordinate={{ latitude: filteredBar.lat, longitude: filteredBar.lgn }}
+              >
+                <Image
+                  source={getMarkerImage(filteredBar.randomValue)}
+                  style={styles.markerImage}
+                />
+                <Callout>
+                  <View style={styles.calloutContainer}>
+                    <Text>Nom : {filteredBar.Nom}</Text>
+                    <Text>Valeur aléatoire : {filteredBar.randomValue}</Text>
+                  </View>
+                </Callout>
+              </Marker>
+            );
+          } else if (group.length > 1) {
+            return (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: group.reduce((sum, bar) => sum + bar.lat, 0) / group.length,
+                  longitude: group.reduce((sum, bar) => sum + bar.lgn, 0) / group.length,
                 }}
               >
-                <Text style={{ color: "white" }}>{group.length}</Text>
-              </View>
-            </Marker>
-          ) : (
-            <Marker
-              key={index}
-              ref={(ref) => (markerRefs.current[group[0].Nom] = ref)}
-              coordinate={{ latitude: group[0].lat, longitude: group[0].lgn }}
-            >
-              <Image
-                source={getMarkerImage(group[0].randomValue)}
-                style={styles.markerImage}
-              />
-              <Callout>
-                <View style={styles.calloutContainer}>
-                  <Text>Nom : {group[0].Nom}</Text>
-                  <Text>Valeur aléatoire : {group[0].randomValue}</Text>
+                <View
+                  style={{
+                    backgroundColor: "gray",
+                    borderRadius: 15,
+                    padding: 10,
+                  }}
+                >
+                  <Text style={{ color: "white" }}>{group.length}</Text>
                 </View>
-              </Callout>
-            </Marker>
-          )
-        )}
+              </Marker>
+            );
+          } else {
+            return (
+              <Marker
+                key={index}
+                ref={(ref) => (markerRefs.current[group[0].Nom] = ref)}
+                coordinate={{ latitude: group[0].lat, longitude: group[0].lgn }}
+              >
+                <Image
+                  source={getMarkerImage(group[0].randomValue)}
+                  style={styles.markerImage}
+                />
+                <Callout>
+                  <View style={styles.calloutContainer}>
+                    <Text>Nom : {group[0].Nom}</Text>
+                    <Text>Valeur aléatoire : {group[0].randomValue}</Text>
+                  </View>
+                </Callout>
+              </Marker>
+            );
+          }
+        })}
+
         {location && (
           <Marker
             coordinate={{
