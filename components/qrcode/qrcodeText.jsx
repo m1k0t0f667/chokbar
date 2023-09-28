@@ -3,7 +3,11 @@ import { Text, StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
 import { Color, Border, FontFamily, FontSize } from "../../GlobalStyles";
 
-const QrcodeText = () => {
+const QrcodeText = ({ userId }) => {
+
+  // Generate the URL for the QR Code
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&bgcolor=ff914d&data=${userId}`;
+
   return (
     <View style={styles.textParent}>
       <Text style={[styles.text, styles.textFlexBox]} />
@@ -14,7 +18,7 @@ const QrcodeText = () => {
           <Image
             style={styles.qrCode1Icon}
             contentFit="cover"
-            source={require("../../assets/qrcode/qr-code.png")}
+            source={{ uri: qrCodeUrl }}  // Updated this line
           />
           <Text style={[styles.ketxu, styles.ketxuTypo]}>KETXU</Text>
         </View>
@@ -26,6 +30,7 @@ const QrcodeText = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   textFlexBox: {
@@ -87,9 +92,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     maxHeight: "100%",
     position: "absolute",
+    borderWidth: 2,
+    borderColor: Color.colorCoral,    
   },
   ketxu: {
-    top: "82.26%",
+    top: "86%",
     left: "35.48%",
     fontSize: FontSize.size_8xl_6,
     color: Color.colorDimgray,
