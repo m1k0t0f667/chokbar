@@ -8,6 +8,7 @@ import { Qrcode } from './qrcodeButton';
 import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
 import { useFonts } from 'expo-font';
+import Offres from '../../pages/offres';
 
 
 export function NavBar() {
@@ -87,7 +88,7 @@ export function NavBar() {
                 <Text style={styles.modalText}>Offres</Text>
                 <Pressable style={{width:35}} onPress={() => {setModalVisible2(!modalVisible2),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
-            <View><Text>Ton contenue</Text></View>
+            <View><Offres></Offres></View>
           </View>
         </View>
         </View>
