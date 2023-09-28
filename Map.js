@@ -60,40 +60,40 @@ export default function Map() {
     groupMarkersByProximity();
   }, [region, bars]);
 
-  //let lastLocation = null;
+  let lastLocation = null;
 
-  // const getLocationAndSendToFirebase = async () => {
-  //   let { status } = await Location.requestForegroundPermissionsAsync();
-  //   if (status !== 'granted') {
-  //     console.error('Permission to access location was denied');
-  //     return;
-  //   }
-  //   let currentLocation = await Location.getCurrentPositionAsync({});
+  const getLocationAndSendToFirebase = async () => {
+     let { status } = await Location.requestForegroundPermissionsAsync();
+     if (status !== 'granted') {
+       console.error('Permission to access location was denied');
+       return;
+     }
+     let currentLocation = await Location.getCurrentPositionAsync({});
 
-  //   sendToFirebase(currentLocation.coords);
+     sendToFirebase(currentLocation.coords);
 
-  //   if (lastLocation && areLocationsEqual(lastLocation, currentLocation.coords)) 
+     if (lastLocation && areLocationsEqual(lastLocation, currentLocation.coords)) 
 
-  //   lastLocation = currentLocation.coords;
-  // };
+     lastLocation = currentLocation.coords;
+   };
 
-  // const areLocationsEqual = (loc1, loc2) => {
-  //   return loc1.latitude === loc2.latitude && loc1.longitude === loc2.longitude;
-  // };
+   const areLocationsEqual = (loc1, loc2) => {
+     return loc1.latitude === loc2.latitude && loc1.longitude === loc2.longitude;
+   };
 
-  // setInterval(getLocationAndSendToFirebase, 900); 
+   setInterval(getLocationAndSendToFirebase, 900); 
 
 
 
-  // const sendToFirebase = async (coords) => {
-  //   if (!auth.currentUser || !auth.currentUser.uid) {
-  //     console.error('Utilisateur non authentifié, impossible d’envoyer la localisation.');
-  //     return;
-  //   }
+   const sendToFirebase = async (coords) => {
+     if (!auth.currentUser || !auth.currentUser.uid) {
+       console.error('Utilisateur non authentifié, impossible d’envoyer la localisation.');
+       return;
+     }
   
-  //   const userDocRef = doc(db, "users", auth.currentUser.uid);
-  //   await setDoc(userDocRef, { location: coords }, { merge: true });
-  // };
+     const userDocRef = doc(db, "users", auth.currentUser.uid);
+     await setDoc(userDocRef, { location: coords }, { merge: true });
+   };
   
   const groupMarkersByProximity = () => {
    

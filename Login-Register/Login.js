@@ -27,9 +27,10 @@ function Login({navigation}) {
   };
 
   const handleForgotPassword = () => {
-    // Ici, vous pouvez ajouter une action à exécuter lorsque l'utilisateur clique sur "Mot de passe oublié ?"
+    // Ajouter une action à exécuter lorsque l'utilisateur clique sur "Mot de passe oublié ?"
   };
 
+ 
   return (
     <View style={styles.container}>
       <View style={styles.inputIconContainer}>
@@ -41,7 +42,8 @@ function Login({navigation}) {
           onChangeText={setEmail}
         />
       </View>
-      <View style={[styles.inputIconContainer, { marginTop: 65 } ]}>
+      
+      <View style={[styles.inputIconContainer, { marginTop: 10 }]}>
         <Image source={lockIcon} style={styles.icon} />
         <TextInput
           style={styles.inputPassword}
@@ -54,21 +56,27 @@ function Login({navigation}) {
           <Image source={hidePassword ? eyeOffIcon : eyeIcon} style={styles.icon} />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.checkboxContainer} onPress={() => setStayConnected(!stayConnected)}>
-        <View style={[styles.checkbox, stayConnected && styles.checkboxChecked]} />
-        <Text style={styles.checkboxLabel}>Resté connecté</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleForgotPassword} style={styles.forgotPasswordLink}>
-        <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
-      </TouchableOpacity>
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 342, marginTop: 8 }}>
+        <TouchableOpacity style={styles.checkboxContainer} onPress={() => setStayConnected(!stayConnected)}>
+          <View style={[styles.checkbox, stayConnected && styles.checkboxChecked]} />
+          <Text style={styles.checkboxLabel}>Resté connecté</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleForgotPassword}>
+          <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity style={styles.button} onPress={login}>
         <Text style={styles.buttonText}>Se connecter</Text>
       </TouchableOpacity>
+
       <View style={styles.dividerContainer}>
         <View style={styles.divider} />
         <Text style={styles.dividerText}>ou continuer avec</Text>
         <View style={styles.divider} />
       </View>
+
       <Image source={googleIcon} style={styles.googleIcon} />
       <Text style={styles.noAccountText}>Pas encore de compte ?</Text>
       <Text style={styles.createAccountText} onPress={() => navigation.navigate('Register')}>Crée un compte</Text>
@@ -186,4 +194,3 @@ const styles = StyleSheet.create({
 
 export default Login;
 
-//ligne de merde
