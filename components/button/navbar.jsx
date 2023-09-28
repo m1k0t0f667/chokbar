@@ -2,13 +2,14 @@ import React, { useState } from 'react'; // import useState
 import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image} from 'react-native'; // import TouchableOpacity
 import Legende from '../button/legende';
 import MenuButton from './menuButton';
-
+import QrcodeText from '../qrcode/qrcodeText';
 import Hot from '../button/hot';
 import { Qrcode } from './qrcodeButton';
 import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
 import { useFonts } from 'expo-font';
 import Offres from '../../pages/offres';
+import { FideliteButton } from '../qrcode/fideliteButton';
 
 
 export function NavBar() {
@@ -38,7 +39,7 @@ export function NavBar() {
                 <Text style={styles.modalText}>Légende</Text>
                 <Pressable style={{width:35}} onPress={() => {setModalVisible(!modalVisible),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
-            <View><Text>Ton contenue</Text></View>
+            <View><Text>Tonontenue</Text></View>
           </View>
         </View>
         </View>
@@ -113,7 +114,7 @@ export function NavBar() {
                 <Text style={styles.modalText}>Qrcode</Text>
                 <Pressable style={{width:35}} onPress={() => {setModalVisible3(!modalVisible3),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
-            <View><Text>Ton contenue</Text></View>
+            <View><Text><QrcodeText/> <FideliteButton/></Text></View>
           </View>
         </View>
         </View>
