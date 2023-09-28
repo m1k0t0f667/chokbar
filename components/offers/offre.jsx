@@ -1,12 +1,13 @@
-import React from 'react';
-import { StyleSheet, View, Text, Image, Modal, TouchableOpacity } from 'react-native';
-import { Color, FontFamily, FontSize } from '../../GlobalStyles';
+import React, { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity, Modal, Text, Pressable, Image } from 'react-native';
+import Croix from "../../assets/Croix1.png"; // Assurez-vous que le chemin d'importation est correct
+import OffreBar from "../button/infobar"
 
 export default function Offre() {
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <TouchableOpacity onPress={() => setModalVisible(true)} style={{...styles.root, ...styles.clickable}}>
+    <TouchableOpacity onPress={() => setModalVisible(true)} style={{ ...styles.root, ...styles.clickable }}>
       <View style={styles.rectangle10}>
         {/* Ajoutez votre image ici */}
         {/* <Image source={require('path_to_your_image.png')} style={{ width: '100%', height: '100%' }} /> */}
@@ -15,7 +16,7 @@ export default function Offre() {
       <Text style={styles.exempleDeBar}>
         Exemple de bar
       </Text>
-      
+
       <View style={styles.offre}>
         <View style={styles.frame13}>
           <Text style={styles.exempleDoffre}>
@@ -23,22 +24,33 @@ export default function Offre() {
           </Text>
         </View>
       </View>
-      
+
       <View style={styles.ratingCircle}>
         <Text style={styles.ratingText}>4.1</Text>
       </View>
 
       <Modal
         animationType="slide"
-        transparent={false}
+        transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
       >
-        <View style={styles.modalContent}>
-          <Text>Contenu du modal pour OffreBar</Text>
-          <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <Text>Fermer</Text>
-          </TouchableOpacity>
+        <View style={styles.centeredView}>
+          <View style={[styles.modalView, { height: '95%' }]}>
+            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", width: "100%", marginBottom: 15 }}>
+              <Text style={styles.modalText}>offre</Text>
+              <Pressable style={{ width: 35 }} onPress={() => setModalVisible(!modalVisible)}>
+                <Image source={Croix} style={{ width: 20, height: 20 }} />
+              </Pressable>
+            </View>
+            <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingBottom: 150 }}>
+              <Text>
+                <OffreBar />
+              </Text>
+            </View>
+          </View>
         </View>
       </Modal>
     </TouchableOpacity>
@@ -65,7 +77,7 @@ const styles = StyleSheet.create({
   rectangle10: {
     position: 'absolute',
     top: 0,
-    width: '100%',
+    width: '107%',
     height: 108,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -76,29 +88,27 @@ const styles = StyleSheet.create({
     bottom: 16,
     left: 17,
     fontSize: 18,
-    fontFamily: FontFamily.promptRegular,    
     color: '#000',
   },
   offre: {
     position: 'absolute',
-    top: 25, 
-    left: 0, 
+    top: 25,
+    left: 0,
     flexDirection: 'row',
-    width: '100%', 
+    width: '100%',
   },
   frame13: {
     backgroundColor: '#FF914D',
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
-    paddingHorizontal: 15, 
-    paddingVertical: 2,   
+    paddingHorizontal: 15,
+    paddingVertical: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
   exempleDoffre: {
-    fontSize: 12, 
+    fontSize: 12,
     color: '#FFF',
-    fontFamily: FontFamily.promptRegular,    
   },
   ratingCircle: {
     position: 'absolute',
@@ -114,9 +124,49 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 12,
   },
-  modalContent: {
+  centeredView: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    width: "100%",
+    margin: 20,
+    marginBottom: 0,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontFamily: "Bungee-Shade",
+    fontSize: 30
   },
 });
