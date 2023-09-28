@@ -12,7 +12,6 @@
   import eyeIcon from '../assets/eye.png';
   import googleIcon from '../assets/google.png';
 
-  
 
   function Login({ navigation }) {
     const [email, setEmail] = useState('');
@@ -32,25 +31,34 @@
     }, []);
 
     const login = async () => {
-        try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-
-            const userDoc = await getDoc(doc(db, 'users', user.uid));
-
-            if (userDoc.exists) {
-                if (userDoc.data()?.isAdmin) {
-                    navigation.navigate('AdminPage');
-                } else {
-                    navigation.navigate('MainPage');
-                }
-            } else {
-                navigation.navigate('MainPage');
-            }
-        } catch (error) {
-            Alert.alert("Mauvais identifiants", error.message);
-        }
+      let user; // define user outside of the try block
+  
+      try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          user = userCredential.user;
+  
+          if (!user || !user.uid) {
+              console.error('User or user UID is not available.');
+              return;
+          }
+  
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+  
+          if (userDoc.exists) {
+              if (userDoc.data()?.isAdmin) {
+                  navigation.navigate('AdminPage', { id: user.uid });
+              } else {
+                  navigation.navigate('MainPage', { id: user.uid });
+              }
+          } else {
+              navigation.navigate('MainPage', { id: user.uid });
+          }
+      } catch (error) {
+          Alert.alert("Mauvais identifiants", error.message);
+      }
     };
+  
+    
 
     if (!fontLoaded) {
         return null;  // Vous pouvez choisir d'afficher un écran de chargement ou un spinner ici si vous le souhaitez.

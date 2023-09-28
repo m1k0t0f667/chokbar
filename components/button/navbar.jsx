@@ -14,8 +14,8 @@ import { FideliteButton } from '../qrcode/fideliteButton';
 import Fidelite from '../offers/fidelite';
 import LegendeDesc from '../../pages/map-key';
 
-export function NavBar({ onCenterPress }) {
-
+export function NavBar({ onCenterPress, userId }) {
+  
   const [activeButton, setActiveButton] = useState(''); // initialize with an empty string
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalVisible1, setModalVisible1] = React.useState(false);
@@ -168,13 +168,12 @@ export function NavBar({ onCenterPress }) {
                         <Image source={Croix} style={{width: 20,height: 20}}></Image>
                     </Pressable>
                 </View>
-                <QrcodeText/> 
+                <QrcodeText userId={userId} /> 
                 <FideliteButton style={styles.fideliteButtonWrapper}/>
             </View>
         </View>
     </View>
 </Modal>
-
 
 
       <TouchableOpacity onPress={() => {setActiveButton('Qrcode'),setModalVisible3(true)}}>

@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   rectangle13: {
     width: 338,
-    height: 395,
+    height: 320,
     backgroundColor: '#FDFDFD',
     elevation: 15,
     shadowColor: '#000',
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   rectangle10: {
-    width: 338,
-    height: 265.275,
+    width: 0,
+    height: 0,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     backgroundColor: '#E2E2E2',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginTop: 260,
+    marginTop: 185,
   },
   ratingContainer: {
     alignItems: 'center',
