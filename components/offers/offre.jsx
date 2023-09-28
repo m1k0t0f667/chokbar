@@ -1,10 +1,22 @@
-import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity, Modal, Text, Pressable, Image, ScrollView } from 'react-native';
 import { Color, FontFamily, FontSize } from '../../GlobalStyles';
+import Croix from "../../assets/Croix1.png";
+import OffreBar from "../button/infobar"
+import * as Font from 'expo-font'
 
+async function loadFonts() {
+  await Font.loadAsync({
+    'Prompt': require('../../GlobalStyles'),  
+  });
+}
 
+loadFonts();
 
 export default function Offre() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedBar, setSelectedBar] = useState(null);
+
   const bars = [
     { name: 'Exemple de bar', offer: 'Exemple d’offre', rating: 4.1, image: require('../../assets/bar1.jpg') }, 
     { name: 'test1', offer: 'Offre 1', rating: 4.2, image: require('../../assets/bar2.jpg') },
@@ -16,37 +28,64 @@ export default function Offre() {
     { name: 'test7', offer: 'Offre 7', rating: 4.8, image: null },
   ];
 
+  const handleBarClick = (bar) => {
+    setSelectedBar(bar);
+    setModalVisible(true);
+  }
+
   return (
     <ScrollView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        {bars.map((bar, index) => (
-          <View key={index} style={styles.root}>
-            <View style={styles.rectangle13} />
-            <View style={styles.rectangle10}>
-              {bar.image && <Image source={bar.image} style={{ width: '100%', height: '100%' }} />}
-            </View>
+      {bars.map((bar, index) => (
+        <TouchableOpacity key={index} onPress={() => handleBarClick(bar)} style={{ ...styles.root, ...styles.clickable }}>
+          <View style={styles.rectangle10}>
+            {bar.image && <Image source={bar.image} style={{ width: '100%', height: '100%' }} />}
+          </View>
 
-            <Text style={styles.exempleDeBar}>
-              {bar.name}
-            </Text>
+          <Text style={styles.exempleDeBar}>
+            {bar.name}
+          </Text>
 
-            <View style={styles.offre}>
-              <View style={styles.frame13}>
-                <Text style={styles.exempleDoffre}>
-                  {bar.offer}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.ratingCircle}>
-              <Text style={styles.ratingText}>{bar.rating}</Text>
+          <View style={styles.offre}>
+            <View style={styles.frame13}>
+              <Text style={styles.exempleDoffre}>
+                {bar.offer}
+              </Text>
             </View>
           </View>
-        ))}
-      </View>
+
+          <View style={styles.ratingCircle}>
+            <Text style={styles.ratingText}>{bar.rating}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={[styles.modalView, { height: '95%' }]}>
+            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", width: "100%", marginBottom: 15 }}>
+              <Text style={styles.modalText}>Offre de {selectedBar?.name}</Text>
+              <Pressable style={{ width: 35 }} onPress={() => setModalVisible(false)}>
+                <Image source={Croix} style={{ width: 20, height: 20 }} />
+              </Pressable>
+            </View>
+            <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingBottom: 150 }}>
+              <Text>
+                <OffreBar />
+              </Text>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
-
 
 
 
@@ -138,4 +177,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+    backgroundColor: 'rgba(0,0,0,0.5)',  
+  },
+  modalView: {
+    width: '100%',  
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  }
 });
