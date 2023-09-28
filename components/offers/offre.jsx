@@ -1,34 +1,59 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 import { Color, FontFamily, FontSize } from '../../GlobalStyles';
 
+
+
 export default function Offre() {
+  const bars = [
+    { name: 'Exemple de bar', offer: 'Exemple d’offre', rating: 4.1, image: require('../../assets/bar1.jpg') }, 
+    { name: 'test1', offer: 'Offre 1', rating: 4.2, image: require('../../assets/bar2.jpg') },
+    { name: 'test2', offer: 'Offre 2', rating: 4.3, image: require('../../assets/bar3.jpg') },
+    { name: 'test3', offer: 'Offre 3', rating: 4.4, image: require('../../assets/bar4.jpg') },
+    { name: 'test4', offer: 'Offre 4', rating: 4.5, image: require('../../assets/bar1.jpg') },
+    { name: 'test5', offer: 'Offre 5', rating: 4.6, image: null },
+    { name: 'test6', offer: 'Offre 6', rating: 4.7, image: null },
+    { name: 'test7', offer: 'Offre 7', rating: 4.8, image: null },
+  ];
+
   return (
-    <View style={styles.root}>
-      <View style={styles.rectangle13} />
+    <ScrollView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        {bars.map((bar, index) => (
+          <View key={index} style={styles.root}>
+            <View style={styles.rectangle13} />
+            <View style={styles.rectangle10}>
+              {bar.image && <Image source={bar.image} style={{ width: '100%', height: '100%' }} />}
+            </View>
 
-      <View style={styles.rectangle10}>
-        {/* Ajoutez votre image ici */}
-        {/* <Image source={require('path_to_your_image.png')} style={{ width: '100%', height: '100%' }} /> */}
-      </View>
+            <Text style={styles.exempleDeBar}>
+              {bar.name}
+            </Text>
 
-      <Text style={styles.exempleDeBar}>
-        Exemple de bar
-      </Text>
-      
-      <View style={styles.offre}>
-        <View style={styles.frame13}>
-          <Text style={styles.exempleDoffre}>
-            Exemple d’offre
-          </Text>
-        </View>
+            <View style={styles.offre}>
+              <View style={styles.frame13}>
+                <Text style={styles.exempleDoffre}>
+                  {bar.offer}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.ratingCircle}>
+              <Text style={styles.ratingText}>{bar.rating}</Text>
+            </View>
+          </View>
+        ))}
       </View>
-      <View style={styles.ratingCircle}>
-        <Text style={styles.ratingText}>4.1</Text>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
+
+
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
   root: {
@@ -43,6 +68,7 @@ const styles = StyleSheet.create({
     shadowRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 15,
   },
   rectangle13: {
     position: 'absolute',
@@ -105,4 +131,11 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 12,
   },
+
+  container: {
+    flexDirection: 'column', 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
 });
