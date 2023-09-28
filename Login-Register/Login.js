@@ -33,14 +33,12 @@ function Login({navigation}) {
       } else {
         navigation.navigate('MainPage');
       }
-    } catch (error) {
-      Alert.alert("Mauvais identifiants", error.message);
-    }
+    } catch (error) {}
   };
   
 
   const handleForgotPassword = () => {
-    // Ajouter une action à exécuter lorsque l'utilisateur clique sur "Mot de passe oublié ?"
+   
   };
 
  
