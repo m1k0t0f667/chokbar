@@ -104,25 +104,30 @@ export function NavBar() {
       </View>
 
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible3}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible3(!modalVisible3);
-        }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(!modalVisible)}>
-        <View style={styles.centerModal}>
-          <View style={[styles.modalView,{height:"95%"}]}>
-            <View style={styles.header}>
-                <Text style={styles.modalText}>Qrcode</Text>
-                <Pressable style={{width:35}} onPress={() => {setModalVisible3(!modalVisible3),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
-                </View>
-            <View><Text><QrcodeText/> <FideliteButton/></Text></View>
-          </View>
+  animationType="slide"
+  transparent={true}
+  visible={modalVisible3}
+  onRequestClose={() => {
+    Alert.alert('Modal has been closed.');
+    setModalVisible3(!modalVisible3);
+  }}>
+  <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(!modalVisible)}>
+    <View style={styles.centerModal}>
+      <View style={[styles.modalView,{height:"95%"}]}>
+        <View style={styles.header}>
+          <Text style={styles.modalText}>Qrcode</Text>
+          <Pressable style={{width:35}} onPress={() => {setModalVisible3(!modalVisible3),setActiveButton('')}}>
+            <Image source={Croix} style={{width: 20,height: 20}}></Image>
+          </Pressable>
         </View>
-        </View>
-      </Modal>
+        <QrcodeText/> 
+        <FideliteButton style={styles.fideliteButtonWrapper}/>
+      </View>
+    </View>
+  </View>
+</Modal>
+
+
       <TouchableOpacity onPress={() => {setActiveButton('Qrcode'),setModalVisible3(true)}}>
         <Qrcode property1={activeButton === 'Qrcode' ? "Active" : "Unactive"}/>
       </TouchableOpacity>
@@ -210,5 +215,19 @@ const styles = StyleSheet.create({
     justifyContent:"space-between",
     paddingLeft:50,
     alignItems: "baseline",
-    width:"100%"}
+    width:"100%"},
+
+    contentWrapper: {
+      marginLeft: 40, 
+    },
+
+    fideliteButtonWrapper: {
+      marginTop: 20, 
+      alignSelf: 'center', 
+      width: '100%', 
+      alignItems: 'center',
+    },
+    
+    
+    
 });
