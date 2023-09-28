@@ -3,11 +3,12 @@ import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image} from 'rea
 import Legende from '../button/legende';
 import MenuButton from './menuButton';
 import Hot from '../button/hot';
+import Center from '../button/center';
 import { Qrcode } from './qrcodeButton';
 import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
 
-export function NavBar() {
+export function NavBar({ onCenterPress }) {
   const [activeButton, setActiveButton] = useState(''); // initialize with an empty string
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalVisible1, setModalVisible1] = React.useState(false);
@@ -15,6 +16,9 @@ export function NavBar() {
   const [modalVisible3, setModalVisible3] = React.useState(false);
   return (
     <View style={styles.root}>
+      <View style={styles.frame17}>
+        <Center property1="Unactive" onPress={onCenterPress} />
+      </View>
       <View style={styles.frame17}>
       <Modal
         animationType="slide"
@@ -24,7 +28,7 @@ export function NavBar() {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(false)}>
+        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:80}} onPress={() => setModalVisible(false)}>
         <View style={styles.centerModal}>
           <View style={[styles.modalView,{height:"45%"}]}>
             <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
@@ -50,7 +54,7 @@ export function NavBar() {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible1);
         }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(false)}>
+        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:80}} onPress={() => setModalVisible(false)}>
         <View style={styles.centerModal}>
           <View style={[styles.modalView,{height:"45%"}]}>
             <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
@@ -74,7 +78,7 @@ export function NavBar() {
           Alert.alert('Modal has been closed.');
           setModalVisible2(!modalVisible2);
         }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(!modalVisible)}>
+        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:80}} onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.centerModal}>
           <View style={[styles.modalView,{height:"45%"}]}>
             <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
@@ -99,7 +103,7 @@ export function NavBar() {
           Alert.alert('Modal has been closed.');
           setModalVisible3(!modalVisible3);
         }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(!modalVisible)}>
+        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:80}} onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.centerModal}>
           <View style={[styles.modalView,{height:"45%"}]}>
             <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
