@@ -35,7 +35,9 @@ function Register({ navigation }) {
         firstName,
         lastName
       });
-      Alert.alert("Succès", "Inscription réussie!", [{ text: "OK", onPress: () => navigation.navigate("Login") }]);
+      Alert.alert("Succès", "Inscription réussie!", [
+        { text: "OK", onPress: () => navigation.navigate("MainPage") },
+      ]);
     } catch (error) {
       Alert.alert("Erreur", error.message);
     }
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 20,
   },
-  
+
 });
 
 export default Register;

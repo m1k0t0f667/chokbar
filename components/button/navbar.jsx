@@ -4,6 +4,7 @@ import Legende from '../button/legende';
 import MenuButton from './menuButton';
 import QrcodeText from '../qrcode/qrcodeText';
 import Hot from '../button/hot';
+import Center from '../button/center';
 import { Qrcode } from './qrcodeButton';
 import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
@@ -13,8 +14,8 @@ import { FideliteButton } from '../qrcode/fideliteButton';
 import Fidelite from '../offers/fidelite';
 import LegendeDesc from '../../pages/map-key';
 
-export function NavBar() {
-  
+export function NavBar({ onCenterPress }) {
+
   const [activeButton, setActiveButton] = useState(''); // initialize with an empty string
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalVisible1, setModalVisible1] = React.useState(false);
@@ -43,7 +44,11 @@ export function NavBar() {
   return (
     <View style={styles.root}>
       <View style={styles.frame17}>
+        <Center property1="Unactive" onPress={onCenterPress} />
+      </View>
+      <View style={styles.frame17}>
       <Modal
+
     animationType="slide"
     transparent={true}
     visible={modalVisible}
@@ -76,6 +81,7 @@ export function NavBar() {
       <View style={styles.frame14}>
         
       <Modal
+
     animationType="slide"
     transparent={true}
     visible={modalVisible1}
@@ -105,6 +111,7 @@ export function NavBar() {
           <MenuButton property1={activeButton === 'MenuButton' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
         <Modal
+
     animationType="slide"
     transparent={true}
     visible={modalVisible2}
@@ -141,6 +148,7 @@ export function NavBar() {
       </View>
 
       <Modal
+
     animationType="slide"
     transparent={true}
     visible={modalVisible3}
