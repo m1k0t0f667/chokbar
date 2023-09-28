@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     left: 126,
-    bottom: 10
+    bottom: 60
   },
   alreadyRegisteredText: {
     color: '#747980',

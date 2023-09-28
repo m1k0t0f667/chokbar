@@ -8,8 +8,8 @@ import Login from '../Login-Register/Login';
 const MainPage = () => {
   return (
     <View style={styles.container}>
-     {/* <Register/> */}
-     <Login/>
+     <Register/>
+     {/* <Login/> */}
     </View>
   );
 }
