@@ -98,22 +98,22 @@ const styles = StyleSheet.create({
   },
   offre: {
     position: 'absolute',
-    top: 25, // Ajusté pour une position plus centrale
-    left: 0, // Collé à gauche
+    top: 25, 
+    left: 0, 
     flexDirection: 'row',
-    width: '100%', // Pour que le bandeau s'étende sur toute la largeur si nécessaire
+    width: '100%', 
   },
   frame13: {
     backgroundColor: '#FF914D',
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
-    paddingHorizontal: 15, // Agrandir le padding horizontal pour que le bandeau soit plus gros
-    paddingVertical: 2,   // Agrandir le padding vertical pour que le bandeau soit plus gros
+    paddingHorizontal: 15, 
+    paddingVertical: 2,   
     alignItems: 'center',
     justifyContent: 'center',
   },
   exempleDoffre: {
-    fontSize: 12, // Ajuster la taille de la police pour qu'elle soit plus grande
+    fontSize: 12, 
     color: '#FFF',
     fontFamily: FontFamily.promptRegular,    
   },
