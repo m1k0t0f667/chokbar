@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import { Color, FontFamily, FontSize } from '../GlobalStyles';
 import Account from '../assets/menu/account';
 import Fidelite from '../assets/menu/fidelite';
 import Mentions from '../assets/menu/mentions';
 import Cgu from '../assets/menu/cgu';
 import theme from '../theme';
-
+import { useNavigation } from '@react-navigation/native';
 function Menu() {
+  const navigation = useNavigation();
     return (
       <View style={styles.root}>
         <View style={[styles.menuItem, styles.separator]}>
@@ -23,6 +24,7 @@ function Menu() {
           <Text style={styles.mentionsLegales}>Mentions légales</Text>
         </View>
         <View style={styles.menuItem4}>
+          <Pressable onPress={() => navigation.navigate('AdminPage')}><Text>Admin</Text></Pressable>
           <Cgu width={20} height={20} />
           <Text style={styles.conditionsGenerales}>Conditions générales</Text>
         </View>
