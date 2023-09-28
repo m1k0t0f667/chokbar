@@ -78,10 +78,14 @@ function Login({navigation}) {
       </View>
 
       <Image source={googleIcon} style={styles.googleIcon} />
-      <Text style={styles.noAccountText}>Pas encore de compte ?</Text>
-      <Text style={styles.createAccountText} onPress={() => navigation.navigate('Register')}>Crée un compte</Text>
-      
-      
+      <View style={styles.accountContainer}>
+        <View style={styles.textWrapper}>
+          <Text style={styles.noAccountText}>Pas encore de compte ?</Text>
+        </View>
+        <View style={styles.textWrapper}>
+          <Text style={styles.createAccountText} onPress={() => navigation.navigate('Register')}>  Crée un compte</Text>
+        </View>
+      </View>
     </View>
   );
 }
@@ -183,12 +187,23 @@ const styles = StyleSheet.create({
   noAccountText: {
     fontSize: 12,
     color: '#747980',
-    marginBottom: 4
+    marginBottom: 0,
+    padding: 0
   },
   createAccountText: {
     fontSize: 12,
     color: '#FF914D',
+    marginBottom: 0,
+    padding: 0
+  },
+  accountContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
     marginBottom: 16
+  },
+  textWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 
