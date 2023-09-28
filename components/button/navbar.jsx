@@ -111,24 +111,29 @@ export function NavBar() {
     onRequestClose={() => {
         Alert.alert('Modal has been closed.');
         setModalVisible2(!modalVisible2);
-    }}>
+    }}
+>
+    {/* Fond semi-transparent */}
     <View 
-        {...panResponder.panHandlers}
-        style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} 
-        onPress={() => setModalVisible2(false)}>
-        <View style={styles.centerModal}>
-            <View style={[styles.modalView,{height:"95%"}]}>
-                <View style={styles.header}>
-                    <Text style={styles.modalText}>Offres</Text>
-                    <Pressable style={{width:35}} onPress={() => {setModalVisible2(false), setActiveButton('')}}>
-                        <Image source={Croix} style={{width: 20,height: 20}}></Image>
-                    </Pressable>
-                </View>
-                <View><Offres/></View>
+        style={{position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor:"rgba(52, 52, 52, 0.8)"}} 
+    />
+
+    {/* Contenu du modal */}
+    <View style={styles.centerModal}>
+        <View style={[styles.modalView, {height:"95%"}]}>
+            {/* Ici, appliquez le panResponder à la barre d'en-tête */}
+            <View {...panResponder.panHandlers} style={styles.header}>
+                <Text style={styles.modalText}>Offres</Text>
+                <Pressable style={{width:35}} onPress={() => {setModalVisible2(false); setActiveButton('')}}>
+                    <Image source={Croix} style={{width: 20, height: 20}} />
+                </Pressable>
             </View>
+            <Offres/>
         </View>
     </View>
 </Modal>
+
+
 
         <TouchableOpacity onPress={() => {setActiveButton('Hot'),setModalVisible2(true)}}>
           <Hot property1={activeButton === 'Hot' ? "Active" : "Unactive"}/>
