@@ -63,7 +63,15 @@ export default function Map() {
       }
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation.coords);
-
+      
+      if (mapRef.current) {       // Animate the map to the user's current location after successfully fetching it
+        mapRef.current.animateToRegion({
+          latitude: currentLocation.coords.latitude,
+          longitude: currentLocation.coords.longitude,
+          latitudeDelta: 0.005,   // reduced for more zoom
+          longitudeDelta: 0.0025, // reduced for more zoom
+        });
+      }
       
       setRegion({
         latitude: currentLocation.coords.latitude,
@@ -74,6 +82,8 @@ export default function Map() {
 
     })();
   }, []);
+
+
 
   useEffect(() => {
     groupMarkersByProximity();
@@ -260,7 +270,7 @@ export default function Map() {
             }}
             title="Ma position"
           >
-            <Image source={locationPin} style={styles.LocationStyle} />
+            <Image source={locationPin} style={[styles.LocationStyle, { zIndex: 999 }]} />          
           </Marker>
         )}
       </MapView>
@@ -294,7 +304,7 @@ const styles = StyleSheet.create({
   },
   markerImage: {
     width: 40,
-    height: 40,
+    height: 55,
   },
   searchContainer: {
     position: "absolute",
@@ -335,7 +345,7 @@ const styles = StyleSheet.create({
     margin: 1,
   },
   LocationStyle: {
-    width: 40,
+    width: 50,
     height: 50,
   },
 });
