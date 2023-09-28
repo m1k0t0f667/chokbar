@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
   },
   markerImage: {
     width: 40,
-    height: 50,
+    height: 40,
   },
   searchContainer: {
     position: 'absolute',

@@ -2,10 +2,13 @@ import React, { useState } from 'react'; // import useState
 import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image} from 'react-native'; // import TouchableOpacity
 import Legende from '../button/legende';
 import MenuButton from './menuButton';
+
 import Hot from '../button/hot';
-import { Qrcode } from './qrcode';
+import { Qrcode } from './qrcodeButton';
 import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
+import { useFonts } from 'expo-font';
+
 
 export function NavBar() {
   const [activeButton, setActiveButton] = useState(''); // initialize with an empty string
@@ -13,6 +16,9 @@ export function NavBar() {
   const [modalVisible1, setModalVisible1] = React.useState(false);
   const [modalVisible2, setModalVisible2] = React.useState(false);
   const [modalVisible3, setModalVisible3] = React.useState(false);
+  const [fontsLoaded, error] = useFonts({
+    "Bungee-Shade": require("../../assets/fonts/BungeeShade-Regular.ttf"),
+  });
   return (
     <View style={styles.root}>
       <View style={styles.frame17}>
@@ -26,10 +32,10 @@ export function NavBar() {
         }}>
         <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(false)}>
         <View style={styles.centerModal}>
-          <View style={[styles.modalView,{height:"45%"}]}>
-            <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
+          <View style={[styles.modalView,{height:"95%"}]}>
+            <View style={styles.header}>
                 <Text style={styles.modalText}>Légende</Text>
-                <Pressable style={{width:35}} onPress={() => setModalVisible(!modalVisible)}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
+                <Pressable style={{width:35}} onPress={() => {setModalVisible(!modalVisible),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
             <View><Text>Ton contenue</Text></View>
           </View>
@@ -53,9 +59,9 @@ export function NavBar() {
         <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(false)}>
         <View style={styles.centerModal}>
           <View style={[styles.modalView,{height:"45%"}]}>
-            <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
-                <Text style={styles.modalText}>Légende</Text>
-                <Pressable style={{width:35}} onPress={() => setModalVisible1(false)}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
+            <View style={styles.header}>
+                <Text style={styles.modalText}>Menu</Text>
+                <Pressable style={{width:35}} onPress={() => {setModalVisible1(false),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
             <View><Menu/></View>
           </View>
@@ -74,12 +80,12 @@ export function NavBar() {
           Alert.alert('Modal has been closed.');
           setModalVisible2(!modalVisible2);
         }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(!modalVisible)}>
+        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => {setModalVisible(!modalVisible)}}>
         <View style={styles.centerModal}>
-          <View style={[styles.modalView,{height:"45%"}]}>
-            <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
-                <Text style={styles.modalText}>Légende</Text>
-                <Pressable style={{width:35}} onPress={() => setModalVisible2(!modalVisible2)}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
+          <View style={[styles.modalView,{height:"95%"}]}>
+            <View style={styles.header}>
+                <Text style={styles.modalText}>Offres</Text>
+                <Pressable style={{width:35}} onPress={() => {setModalVisible2(!modalVisible2),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
             <View><Text>Ton contenue</Text></View>
           </View>
@@ -101,10 +107,10 @@ export function NavBar() {
         }}>
         <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.centerModal}>
-          <View style={[styles.modalView,{height:"45%"}]}>
-            <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
-                <Text style={styles.modalText}>Légende</Text>
-                <Pressable style={{width:35}} onPress={() => setModalVisible3(!modalVisible3)}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
+          <View style={[styles.modalView,{height:"95%"}]}>
+            <View style={styles.header}>
+                <Text style={styles.modalText}>Qrcode</Text>
+                <Pressable style={{width:35}} onPress={() => {setModalVisible3(!modalVisible3),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
             <View><Text>Ton contenue</Text></View>
           </View>
@@ -187,5 +193,16 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
-    textAlign: 'center',}
+    textAlign: 'center',
+    fontFamily:"Bungee-Shade",
+    fontSize:30
+  },
+
+  header:{
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"space-between",
+    paddingLeft:50,
+    alignItems: "baseline",
+    width:"100%"}
 });

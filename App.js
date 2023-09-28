@@ -8,12 +8,13 @@ export default function App() {
   const [fontsLoaded, error] = useFonts({
     "Prompt-Regular": require("./assets/fonts/Prompt-Regular.ttf"),
     "Prompt-Medium": require("./assets/fonts/Prompt-Medium.ttf"),
+    "Bungee-Shade": require("./assets/fonts/BungeeShade-Regular.ttf"),
   });
 
   if (!fontsLoaded && !error) {
     return null;
   }
-  
+
   return (
     <View style={styles.container}>
       <MainPage />
