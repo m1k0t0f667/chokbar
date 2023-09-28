@@ -1,8 +1,17 @@
-import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, TextInput, FlatList } from 'react-native';
-import locationPin from './assets/PinLocation.png';
+import React, { useRef, useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  FlatList,
+} from "react-native";
+
 import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
+import locationPin from "./assets/PinLocation.png";
 import barsData from "./DataBar.json";
 import greenMarker from "./assets/Green.png";
 import yellowMarker from "./assets/Yellow.png";
@@ -10,7 +19,7 @@ import redMarker from "./assets/Red.png";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { auth, app, db } from "./firebase";
 
-const Map = forwardRef((props, ref) => {
+export default function Map() {
   const mapRef = useRef(null);
   const markerRefs = useRef({});
   const [bars, setBars] = useState([]);
@@ -25,7 +34,7 @@ const Map = forwardRef((props, ref) => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  
+
   useEffect(() => {
     const barsWithRandomValue = barsData.map((bar) => ({
       ...bar,
@@ -54,44 +63,26 @@ const Map = forwardRef((props, ref) => {
       }
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation.coords);
-  
-      // Animate the map to the user's current location after successfully fetching it
-      if (mapRef.current) {
-        mapRef.current.animateToRegion({
-          latitude: currentLocation.coords.latitude,
-          longitude: currentLocation.coords.longitude,
-          latitudeDelta: 0.01,   // reduced for more zoom
-          longitudeDelta: 0.005, // reduced for more zoom
-        });
-      }
-  
+
+      
+      setRegion({
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      });
+
     })();
   }, []);
-  
-  useImperativeHandle(ref, () => ({
-    centerOnUserLocation: () => {
-      if (location) {
-        console.log('Got user location, animating map to region...');
-        mapRef.current?.animateToRegion({
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.005,
-        });
-      } else {
-        console.log('No user location available.');
-      }
-    }
-  }));
-  
 
-  
   useEffect(() => {
     groupMarkersByProximity();
   }, [region, bars]);
 
-
   let lastLocation = null;
+
+  const [filteredBar, setFilteredBar] = useState(null);
+
 
   const getLocationAndSendToFirebase = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -167,16 +158,15 @@ const Map = forwardRef((props, ref) => {
   const handleBarSelectFromSearch = (bar) => {
     setSearchQuery("");
     setSelectedBar(bar);
+    setFilteredBar(bar); 
 
-    if (mapRef && mapRef.current) {
-      mapRef.current.animateToRegion({
-        latitude: bar.lat,
-        longitude: bar.lgn,
-        latitudeDelta: 0.00922,
-        longitudeDelta: 0.00421,
-      });
-    }
-    
+    mapRef.current.animateToRegion({
+      latitude: bar.lat,
+      longitude: bar.lgn,
+      latitudeDelta: 0.00922,
+      longitudeDelta: 0.00421,
+    });
+
     setTimeout(() => {
       if (markerRefs.current[bar.Nom]) {
         markerRefs.current[bar.Nom].showCallout();
@@ -184,14 +174,14 @@ const Map = forwardRef((props, ref) => {
     });
   };
 
+
   const renderSearchItem = ({ item, index }) => (
     <TouchableOpacity onPress={() => handleBarSelectFromSearch(item)}>
       <Text style={styles.searchItem}>{item.Nom}</Text>
     </TouchableOpacity>
   );
 
-  const ZOOM_THRESHOLD = 0.02;
-
+ 
   return (
     <View style={styles.container}>
       <MapView
@@ -200,47 +190,68 @@ const Map = forwardRef((props, ref) => {
         region={region}
         onRegionChangeComplete={setRegion}
       >
-        {region.latitudeDelta > ZOOM_THRESHOLD 
-          ? groupedMarkers.map((group, index) => (
-            group.length > 1 ? (
-
-            <Marker
-              key={index}
-              coordinate={{
-                latitude:
-                  group.reduce((sum, bar) => sum + bar.lat, 0) / group.length,
-                longitude:
-                  group.reduce((sum, bar) => sum + bar.lgn, 0) / group.length,
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: "gray",
-                  borderRadius: 15,
-                  padding: 10,
+        {groupedMarkers.map((group, index) => {
+          if (filteredBar && group.some(b => b.Nom === filteredBar.Nom)) {
+            return (
+              <Marker
+                key={index}
+                ref={(ref) => (markerRefs.current[filteredBar.Nom] = ref)}
+                coordinate={{ latitude: filteredBar.lat, longitude: filteredBar.lgn }}
+              >
+                <Image
+                  source={getMarkerImage(filteredBar.randomValue)}
+                  style={styles.markerImage}
+                />
+                <Callout>
+                  <View style={styles.calloutContainer}>
+                    <Text>Nom : {filteredBar.Nom}</Text>
+                    <Text>Valeur aléatoire : {filteredBar.randomValue}</Text>
+                  </View>
+                </Callout>
+              </Marker>
+            );
+          } else if (group.length > 1) {
+            return (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: group.reduce((sum, bar) => sum + bar.lat, 0) / group.length,
+                  longitude: group.reduce((sum, bar) => sum + bar.lgn, 0) / group.length,
                 }}
               >
-                <Text style={{ color: "white" }}>{group.length}</Text>
-              </View>
-            </Marker>
-          ) : null
-          ))
-          : bars.map((bar, index) => (
-              <Marker
-                  key={index}
-                  ref={ref => markerRefs.current[bar.Nom] = ref}
-                  coordinate={{ latitude: bar.lat, longitude: bar.lgn }}>
-                  <Image source={getMarkerImage(bar.randomValue)} style={styles.markerImage} />
-                  <Callout>
-                      <View style={styles.calloutContainer}>
-                          <Text>Nom : {bar.Nom}</Text>
-                          <Text>Valeur aléatoire : {bar.randomValue}</Text>
-                      </View>
-                  </Callout>
+                <View
+                  style={{
+                    backgroundColor: "gray",
+                    borderRadius: 15,
+                    padding: 10,
+                  }}
+                >
+                  <Text style={{ color: "white" }}>{group.length}</Text>
+                </View>
               </Marker>
-          ))
-        }
-  
+            );
+          } else {
+            return (
+              <Marker
+                key={index}
+                ref={(ref) => (markerRefs.current[group[0].Nom] = ref)}
+                coordinate={{ latitude: group[0].lat, longitude: group[0].lgn }}
+              >
+                <Image
+                  source={getMarkerImage(group[0].randomValue)}
+                  style={styles.markerImage}
+                />
+                <Callout>
+                  <View style={styles.calloutContainer}>
+                    <Text>Nom : {group[0].Nom}</Text>
+                    <Text>Valeur aléatoire : {group[0].randomValue}</Text>
+                  </View>
+                </Callout>
+              </Marker>
+            );
+          }
+        })}
+
         {location && (
           <Marker
             coordinate={{
@@ -248,14 +259,12 @@ const Map = forwardRef((props, ref) => {
               longitude: location.longitude,
             }}
             title="Ma position"
-            style={{ zIndex: 999 }} // This ensures the marker is on top of others
           >
-            <Image source={locationPin} style={[styles.LocationStyle, { zIndex: 999 }]} />
-
+            <Image source={locationPin} style={styles.LocationStyle} />
           </Marker>
         )}
       </MapView>
-  
+
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -274,24 +283,18 @@ const Map = forwardRef((props, ref) => {
       </View>
     </View>
   );
-  
-});
-
-export default Map;
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    overflow: 'hidden',
-    backgroundColor: '#fff',
-
+    backgroundColor: "#fff",
   },
   map: {
     flex: 1,
   },
   markerImage: {
     width: 40,
-    height: 55,
+    height: 40,
   },
   searchContainer: {
     position: "absolute",
@@ -333,7 +336,6 @@ const styles = StyleSheet.create({
   },
   LocationStyle: {
     width: 40,
-    height: 40,
-  }
-  
+    height: 50,
+  },
 });

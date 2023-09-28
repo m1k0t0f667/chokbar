@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
+
 
 export function ButtonPoint({ progress = 85 }) {
   const progressBarWidth = (progress / 100) * 200;
@@ -20,16 +21,23 @@ export function ButtonPoint({ progress = 85 }) {
   );
 }
 
-export function OffreBar() {
+export function OffreBar({ barDetails }) {
   return (
     <View style={styles.root}>
       <View style={styles.rectangle13}>
-        <View style={styles.rectangle10}></View>
+      <View style={styles.rectangle10}>
+  <Image
+    source={{ uri: barDetails.image }}
+    style={{ width: '100%', height: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15 }}
+    resizeMode="cover"
+  />
+</View>
+
         <View style={styles.header}>
-          <Text style={styles.exempleDeBar}>Exemple de bar</Text>
+          <Text style={styles.exempleDeBar}>{barDetails.name}</Text>
           <View style={styles.ratingContainer}>
             <View style={styles.ratingCircle}>
-              <Text style={styles.ratingText}>4.1</Text>
+              <Text style={styles.ratingText}>{barDetails.rating}</Text>
             </View>
           </View>
         </View>
@@ -38,7 +46,7 @@ export function OffreBar() {
           <Text style={styles.numero}>Numéro</Text>
         </View>
         <View style={styles.rectangle14}>
-          <Text style={styles.offre}>Offre</Text>
+          <Text style={styles.offre}>{barDetails.offer}</Text>
         </View>
         <View style={styles.buttonPointContainer}>
           <ButtonPoint />
