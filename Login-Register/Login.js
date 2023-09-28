@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, Alert, StyleSheet, Image } from 'react-native';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-
+import { getDoc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
+import { db } from '../firebase';
 import emailIcon from '../assets/emailIcon.png';
 import lockIcon from '../assets/lock.png';
 import eyeOffIcon from '../assets/eye-off.png';
@@ -17,14 +19,25 @@ function Login({navigation}) {
 
   const login = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      Alert.alert("Succès", "Connexion réussie!", [
-        { text: "OK", onPress: () => navigation.navigate('MainPage') }
-      ]);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+  
+      if (userDoc.exists) {
+        if (userDoc.data()?.isAdmin) {
+          navigation.navigate('AdminPage');
+        } else {
+          navigation.navigate('MainPage');
+        }
+      } else {
+        navigation.navigate('MainPage');
+      }
     } catch (error) {
       Alert.alert("Mauvais identifiants", error.message);
     }
   };
+  
 
   const handleForgotPassword = () => {
     // Ajouter une action à exécuter lorsque l'utilisateur clique sur "Mot de passe oublié ?"
