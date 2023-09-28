@@ -8,7 +8,12 @@ import Login from '../Login-Register/Login';
 const MainPage = () => {
   return (
     <View style={styles.container}>
-     <Register/>
+      <Map />
+      <View style={styles.navBarContainer}>
+        <NavBar />
+      </View>
+      <View style={styles.buttonContainer}>
+      </View>
     </View>
   );
 }

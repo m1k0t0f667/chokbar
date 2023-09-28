@@ -10,7 +10,7 @@ import eyeIcon from '../assets/eye.png';
 import inscriptionImage from '../assets/inscription.png';
 
 
-function Register() {
+function Register({navigation}) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,7 +20,9 @@ function Register() {
   const register = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      Alert.alert("Succès", "Inscription réussie!");
+      Alert.alert("Succès", "Inscription réussie!", [
+        { text: "OK", onPress: () => navigation.navigate('Login') }
+      ]);
     } catch (error) {
       Alert.alert("Erreur", error.message);
     }
@@ -72,7 +74,7 @@ function Register() {
       </View>
       <View style={styles.footerContainer}>
         <Text style={styles.alreadyRegisteredText}>Déjà inscrit ?</Text>
-        <Text style={styles.loginText}>Connexion</Text>
+        <Text style={styles.loginText} onPress={() => navigation.navigate('Login')}>Connexion</Text>
       </View>
     </View>
   );

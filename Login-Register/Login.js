@@ -9,7 +9,7 @@ import eyeOffIcon from '../assets/eye-off.png';
 import eyeIcon from '../assets/eye.png';
 import googleIcon from '../assets/google.png';
 
-function Login() {
+function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [stayConnected, setStayConnected] = useState(false);
@@ -18,7 +18,9 @@ function Login() {
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      Alert.alert("Succès", "Connexion réussie!");
+      Alert.alert("Succès", "Connexion réussie!", [
+        { text: "OK", onPress: () => navigation.navigate('MainPage') }
+      ]);
     } catch (error) {
       Alert.alert("Mauvais identifiants", error.message);
     }
@@ -69,7 +71,7 @@ function Login() {
       </View>
       <Image source={googleIcon} style={styles.googleIcon} />
       <Text style={styles.noAccountText}>Pas encore de compte ?</Text>
-      <Text style={styles.createAccountText}>Crée un compte</Text>
+      <Text style={styles.createAccountText} onPress={() => navigation.navigate('Register')}>Crée un compte</Text>
       
       
     </View>
