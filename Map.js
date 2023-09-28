@@ -7,6 +7,9 @@ import barsData from './DataBar.json';
 import greenMarker from './assets/Green.png';
 import yellowMarker from './assets/Yellow.png';
 import redMarker from './assets/Red.png';
+import { getFirestore, doc, setDoc } from "firebase/firestore"; 
+import { auth, app, db} from "./firebase"
+
 
 export default function Map() {
   const mapRef = useRef(null);
@@ -57,6 +60,41 @@ export default function Map() {
     groupMarkersByProximity();
   }, [region, bars]);
 
+  //let lastLocation = null;
+
+  // const getLocationAndSendToFirebase = async () => {
+  //   let { status } = await Location.requestForegroundPermissionsAsync();
+  //   if (status !== 'granted') {
+  //     console.error('Permission to access location was denied');
+  //     return;
+  //   }
+  //   let currentLocation = await Location.getCurrentPositionAsync({});
+
+  //   sendToFirebase(currentLocation.coords);
+
+  //   if (lastLocation && areLocationsEqual(lastLocation, currentLocation.coords)) 
+
+  //   lastLocation = currentLocation.coords;
+  // };
+
+  // const areLocationsEqual = (loc1, loc2) => {
+  //   return loc1.latitude === loc2.latitude && loc1.longitude === loc2.longitude;
+  // };
+
+  // setInterval(getLocationAndSendToFirebase, 900); 
+
+
+
+  // const sendToFirebase = async (coords) => {
+  //   if (!auth.currentUser || !auth.currentUser.uid) {
+  //     console.error('Utilisateur non authentifié, impossible d’envoyer la localisation.');
+  //     return;
+  //   }
+  
+  //   const userDocRef = doc(db, "users", auth.currentUser.uid);
+  //   await setDoc(userDocRef, { location: coords }, { merge: true });
+  // };
+  
   const groupMarkersByProximity = () => {
    
     const proximity = region.latitudeDelta / 10;
@@ -152,7 +190,7 @@ const renderSearchItem = ({ item, index }) => (
           ) : (
             <Marker
               key={index}
-              ref={ref => markerRefs.current[group[0].Nom] = ref} // Ajout de cette ligne
+              ref={ref => markerRefs.current[group[0].Nom] = ref} 
               coordinate={{ latitude: group[0].lat, longitude: group[0].lgn }}
             >
               <Image source={getMarkerImage(group[0].randomValue)} style={styles.markerImage} />
@@ -186,7 +224,7 @@ const renderSearchItem = ({ item, index }) => (
           <FlatList
             data={searchResults}
             renderItem={renderSearchItem}
-            keyExtractor={(item, index) => `${item.Nom}-${index}`}  // Modification ici
+            keyExtractor={(item, index) => `${item.Nom}-${index}`} 
             style={styles.searchResults}
           />
         )}
