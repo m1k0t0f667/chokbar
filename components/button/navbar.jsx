@@ -10,14 +10,18 @@ import Menu from '../../pages/menu';
 import { useFonts } from 'expo-font';
 import Offres from '../../pages/offres';
 import { FideliteButton } from '../qrcode/fideliteButton';
-
+import Fidelite from '../offers/fidelite';
+import Legend from './legende'
 
 export function NavBar() {
+  
   const [activeButton, setActiveButton] = useState(''); // initialize with an empty string
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalVisible1, setModalVisible1] = React.useState(false);
   const [modalVisible2, setModalVisible2] = React.useState(false);
   const [modalVisible3, setModalVisible3] = React.useState(false);
+  const [activeComponent, setActiveComponent] = useState(null);
+
   const [fontsLoaded, error] = useFonts({
     "Bungee-Shade": require("../../assets/fonts/BungeeShade-Regular.ttf"),
   });
@@ -39,7 +43,7 @@ export function NavBar() {
                 <Text style={styles.modalText}>Légende</Text>
                 <Pressable style={{width:35}} onPress={() => {setModalVisible(!modalVisible),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
-            <View><Text>Tonontenue</Text></View>
+            <View><Text><Legend/></Text></View>
           </View>
         </View>
         </View>
@@ -89,7 +93,7 @@ export function NavBar() {
                 <Text style={styles.modalText}>Offres</Text>
                 <Pressable style={{width:35}} onPress={() => {setModalVisible2(!modalVisible2),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
                 </View>
-            <View><Offres></Offres></View>
+            <View><Offres/></View>
           </View>
         </View>
         </View>
