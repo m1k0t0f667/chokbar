@@ -1,47 +1,79 @@
-import React, { useState } from 'react'; // import useState
-import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image} from 'react-native'; // import TouchableOpacity
+import React, { useState } from 'react'; 
+import {StyleSheet, View, TouchableOpacity,Modal,Text,Pressable,Image, PanResponder} from 'react-native'; // import TouchableOpacity
 import Legende from '../button/legende';
 import MenuButton from './menuButton';
-
+import QrcodeText from '../qrcode/qrcodeText';
 import Hot from '../button/hot';
+import Center from '../button/center';
 import { Qrcode } from './qrcodeButton';
 import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
 import { useFonts } from 'expo-font';
+import Offres from '../../pages/offres';
+import { FideliteButton } from '../qrcode/fideliteButton';
+import Fidelite from '../offers/fidelite';
+import LegendeDesc from '../../pages/map-key';
 
+export function NavBar({ onCenterPress }) {
 
-export function NavBar() {
   const [activeButton, setActiveButton] = useState(''); // initialize with an empty string
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalVisible1, setModalVisible1] = React.useState(false);
   const [modalVisible2, setModalVisible2] = React.useState(false);
   const [modalVisible3, setModalVisible3] = React.useState(false);
+  const [activeComponent, setActiveComponent] = useState(null);
+
   const [fontsLoaded, error] = useFonts({
     "Bungee-Shade": require("../../assets/fonts/BungeeShade-Regular.ttf"),
   });
+
+  const panResponder = React.useRef(
+    PanResponder.create({
+        onStartShouldSetPanResponder: () => true,
+        onPanResponderMove: (event, gestureState) => {
+            if (gestureState.dy > 50) {  // si glissé vers le bas de plus de 50 pixels
+                setModalVisible(false);
+                setModalVisible1(false);
+                setModalVisible2(false);
+                setModalVisible3(false);
+            }
+        }
+    })
+).current;
+
   return (
     <View style={styles.root}>
       <View style={styles.frame17}>
+        <Center property1="Unactive" onPress={onCenterPress} />
+      </View>
+      <View style={styles.frame17}>
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(false)}>
+
+    animationType="slide"
+    transparent={true}
+    visible={modalVisible}
+    onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+        setModalVisible(!modalVisible);
+    }}>
+    <View 
+        {...panResponder.panHandlers}
+        style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} 
+        onPress={() => setModalVisible(false)}>
         <View style={styles.centerModal}>
-          <View style={[styles.modalView,{height:"95%"}]}>
-            <View style={styles.header}>
-                <Text style={styles.modalText}>Légende</Text>
-                <Pressable style={{width:35}} onPress={() => {setModalVisible(!modalVisible),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
+            <View style={[styles.modalView,{height:"95%"}]}>
+                <View style={styles.header}>
+                    <Text style={styles.modalText}>Légende</Text>
+                    <Pressable style={{width:35}} onPress={() => {setModalVisible(!modalVisible), setActiveButton('')}}>
+                        <Image source={Croix} style={{width: 20,height: 20}}></Image>
+                    </Pressable>
                 </View>
-            <View><Text>Ton contenue</Text></View>
-          </View>
+                <View><Text><LegendeDesc/></Text></View>
+            </View>
         </View>
-        </View>
-      </Modal>
+    </View>
+</Modal>
+
         <TouchableOpacity onPress={() => {setActiveButton('Legende'),setModalVisible(true)}}>
           <Legende property1={activeButton === 'Legende' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
@@ -49,74 +81,102 @@ export function NavBar() {
       <View style={styles.frame14}>
         
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible1}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible1);
-        }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(false)}>
+
+    animationType="slide"
+    transparent={true}
+    visible={modalVisible1}
+    onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+        setModalVisible1(!modalVisible1);
+    }}>
+    <View 
+        {...panResponder.panHandlers}
+        style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} 
+        onPress={() => setModalVisible1(false)}>
         <View style={styles.centerModal}>
-          <View style={[styles.modalView,{height:"45%"}]}>
-            <View style={styles.header}>
-                <Text style={styles.modalText}>Menu</Text>
-                <Pressable style={{width:35}} onPress={() => {setModalVisible1(false),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
+            <View style={[styles.modalView,{height:"45%"}]}>
+                <View style={styles.header}>
+                    <Text style={styles.modalText}>Menu</Text>
+                    <Pressable style={{width:35}} onPress={() => {setModalVisible1(false), setActiveButton('')}}>
+                        <Image source={Croix} style={{width: 20,height: 20}}></Image>
+                    </Pressable>
                 </View>
-            <View><Menu/></View>
-          </View>
+                <View><Menu/></View>
+            </View>
         </View>
-        </View>
-      </Modal>
+    </View>
+</Modal>
 
         <TouchableOpacity onPress={() => {setActiveButton('MenuButton'),setModalVisible1(true)}}>
           <MenuButton property1={activeButton === 'MenuButton' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
         <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible2}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible2(!modalVisible2);
-        }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => {setModalVisible(!modalVisible)}}>
-        <View style={styles.centerModal}>
-          <View style={[styles.modalView,{height:"95%"}]}>
-            <View style={styles.header}>
+
+    animationType="slide"
+    transparent={true}
+    visible={modalVisible2}
+    onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+        setModalVisible2(!modalVisible2);
+    }}
+>
+    {/* Fond semi-transparent */}
+    <View 
+        style={{position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor:"rgba(52, 52, 52, 0.8)"}} 
+    />
+
+    {/* Contenu du modal */}
+    <View style={styles.centerModal}>
+        <View style={[styles.modalView, {height:"95%"}]}>
+            {/* Ici, appliquez le panResponder à la barre d'en-tête */}
+            <View {...panResponder.panHandlers} style={styles.header}>
                 <Text style={styles.modalText}>Offres</Text>
-                <Pressable style={{width:35}} onPress={() => {setModalVisible2(!modalVisible2),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
-                </View>
-            <View><Text>Ton contenue</Text></View>
-          </View>
+                <Pressable style={{width:35}} onPress={() => {setModalVisible2(false); setActiveButton('')}}>
+                    <Image source={Croix} style={{width: 20, height: 20}} />
+                </Pressable>
+            </View>
+            <Offres/>
         </View>
-        </View>
-      </Modal>
+    </View>
+</Modal>
+
+
+
         <TouchableOpacity onPress={() => {setActiveButton('Hot'),setModalVisible2(true)}}>
           <Hot property1={activeButton === 'Hot' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
       </View>
 
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible3}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible3(!modalVisible3);
-        }}>
-        <View style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} onPress={() => setModalVisible(!modalVisible)}>
+
+    animationType="slide"
+    transparent={true}
+    visible={modalVisible3}
+    onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+        setModalVisible3(!modalVisible3);
+    }}>
+    <View 
+        {...panResponder.panHandlers}
+        style={{width:"100%",height:"100%",backgroundColor:"rgba(52, 52, 52, 0.8)",opacity:50}} 
+        onPress={() => setModalVisible3(false)}>
         <View style={styles.centerModal}>
-          <View style={[styles.modalView,{height:"95%"}]}>
-            <View style={styles.header}>
-                <Text style={styles.modalText}>Qrcode</Text>
-                <Pressable style={{width:35}} onPress={() => {setModalVisible3(!modalVisible3),setActiveButton('')}}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
+            <View style={[styles.modalView,{height:"95%"}]}>
+                <View style={styles.header}>
+                    <Text style={styles.modalText}>Qrcode</Text>
+                    <Pressable style={{width:35}} onPress={() => {setModalVisible3(false), setActiveButton('')}}>
+                        <Image source={Croix} style={{width: 20,height: 20}}></Image>
+                    </Pressable>
                 </View>
-            <View><Text>Ton contenue</Text></View>
-          </View>
+                <QrcodeText/> 
+                <FideliteButton style={styles.fideliteButtonWrapper}/>
+            </View>
         </View>
-        </View>
-      </Modal>
+    </View>
+</Modal>
+
+
+
       <TouchableOpacity onPress={() => {setActiveButton('Qrcode'),setModalVisible3(true)}}>
         <Qrcode property1={activeButton === 'Qrcode' ? "Active" : "Unactive"}/>
       </TouchableOpacity>
@@ -204,5 +264,19 @@ const styles = StyleSheet.create({
     justifyContent:"space-between",
     paddingLeft:50,
     alignItems: "baseline",
-    width:"100%"}
+    width:"100%"},
+
+    contentWrapper: {
+      marginLeft: 40, 
+    },
+
+    fideliteButtonWrapper: {
+      marginTop: 20, 
+      alignSelf: 'center', 
+      width: '100%', 
+      alignItems: 'center',
+    },
+    
+    
+    
 });

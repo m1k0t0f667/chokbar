@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
-import MainPage from "./pages/mainPage";
+import Anim from "./Anim";
+
+import Routes from "./routes";
 
 export default function App() {
   const [fontsLoaded, error] = useFonts({
@@ -10,14 +12,19 @@ export default function App() {
     "Prompt-Medium": require("./assets/fonts/Prompt-Medium.ttf"),
     "Bungee-Shade": require("./assets/fonts/BungeeShade-Regular.ttf"),
   });
+  const [loadingDone, setLoadingDone] = useState(false);
 
   if (!fontsLoaded && !error) {
     return null;
   }
 
+  if (!loadingDone){
+    return <Anim onDone={() => setLoadingDone(true)} />
+  }
+
   return (
     <View style={styles.container}>
-      <MainPage />
+      <Routes />
       <StatusBar style="auto" />
     </View>
   );
