@@ -184,4 +184,3 @@ const styles = StyleSheet.create({
 
 export default Login;
 
-//ligne de merde

@@ -7,7 +7,7 @@ import emailIcon from '../assets/emailIcon.png';
 import lockIcon from '../assets/lock.png';
 import eyeOffIcon from '../assets/eye-off.png';
 import eyeIcon from '../assets/eye.png';
-import inscriptionImage from '../assets/inscription.png';
+
 
 
 function Register() {
