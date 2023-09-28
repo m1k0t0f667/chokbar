@@ -18,15 +18,31 @@ export default function Offre() {
   const [selectedBar, setSelectedBar] = useState(null);
 
   const bars = [
-    { name: 'Exemple de bar', offer: 'Exemple d’offre', rating: 4.1, image: require('../../assets/bar1.jpg') }, 
-    { name: 'test1', offer: 'Offre 1', rating: 4.2, image: require('../../assets/bar2.jpg') },
-    { name: 'test2', offer: 'Offre 2', rating: 4.3, image: require('../../assets/bar3.jpg') },
-    { name: 'test3', offer: 'Offre 3', rating: 4.4, image: require('../../assets/bar4.jpg') },
-    { name: 'test4', offer: 'Offre 4', rating: 4.5, image: require('../../assets/bar1.jpg') },
+    { name: 'Exemple de bar', offer: 'Exemple d’offre', rating: 4.1, image: 'bar1' }, 
+    { name: 'test1', offer: 'Offre 1', rating: 4.2, image: 'bar2' },
+    { name: 'test2', offer: 'Offre 2', rating: 4.3, image: 'bar3' },
+    { name: 'test3', offer: 'Offre 3', rating: 4.4, image: 'bar4' },
+    { name: 'test4', offer: 'Offre 4', rating: 4.5, image: 'bar1' },
     { name: 'test5', offer: 'Offre 5', rating: 4.6, image: null },
     { name: 'test6', offer: 'Offre 6', rating: 4.7, image: null },
     { name: 'test7', offer: 'Offre 7', rating: 4.8, image: null },
-  ];
+];
+
+const getImage = (imageName) => {
+  switch (imageName) {
+    case 'bar1':
+      return require('../../assets/bar1.jpg');
+    case 'bar2':
+      return require('../../assets/bar2.jpg');
+    case 'bar3':
+      return require('../../assets/bar3.jpg');
+    case 'bar4':
+      return require('../../assets/bar4.jpg');
+    default:
+      return null;
+  }
+}
+
 
   const handleBarClick = (bar) => {
     setSelectedBar(bar);
@@ -36,8 +52,11 @@ export default function Offre() {
   return (
     <ScrollView style={{ flex: 1 }}>
       {bars.map((bar, index) => (
+        
         <TouchableOpacity key={index} onPress={() => handleBarClick(bar)} style={{ ...styles.root, ...styles.clickable }}>
           <View style={styles.rectangle10}>
+          <Image source={getImage(bar.image)} style={{ width: '100%', height: '100%' }} />
+
             {bar.image && <Image source={bar.image} style={{ width: '100%', height: '100%' }} />}
           </View>
 
@@ -60,14 +79,14 @@ export default function Offre() {
       ))}
 
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <View style={styles.centeredView}>
+  animationType="slide"
+  transparent={true}
+  visible={modalVisible}
+  onRequestClose={() => {
+    setModalVisible(false);
+  }}
+>
+<View style={styles.centeredView}>
           <View style={[styles.modalView, { height: '95%' }]}>
             <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", width: "100%", marginBottom: 15 }}>
               <Text style={styles.modalText}>Offre de {selectedBar?.name}</Text>
@@ -76,9 +95,8 @@ export default function Offre() {
               </Pressable>
             </View>
             <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingBottom: 150 }}>
-              <Text>
-                <OffreBar />
-              </Text>
+              {/* Use OffreBar component here */}
+              {selectedBar && <OffreBar barDetails={selectedBar} />}
             </View>
           </View>
         </View>
@@ -86,6 +104,11 @@ export default function Offre() {
     </ScrollView>
   );
 }
+
+
+
+
+
 
 
 
