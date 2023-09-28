@@ -10,7 +10,7 @@ const LegendeProperty1 = {
   Unactive: 'Unactive',
 };
 
-function Legende(props) {
+ function Legend(props) {
   const isActive = props.property1 === LegendeProperty1.Active;
 
   const Ellipse = isActive ? EllipseOrange : EllipseWhite;
@@ -57,4 +57,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Legende;
+
+export default Legend
