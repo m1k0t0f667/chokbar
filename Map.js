@@ -278,7 +278,7 @@ export default function Map() {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
-          placeholder="Rechercher un bar..."
+          placeholder="Trouve ton bar..."
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
@@ -312,6 +312,12 @@ const styles = StyleSheet.create({
     left: 30,
     right: 30,
     backgroundColor: "transparent",
+  },
+  searchIcon : {
+    position: 'absolute',
+    zIndex: '999',
+    bottom: 12,
+    left: 10,
   },
   searchInput: {
     padding: 15,

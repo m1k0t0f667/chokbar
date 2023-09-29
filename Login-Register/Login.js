@@ -101,7 +101,7 @@
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 342, marginTop: 8 }}>
           <TouchableOpacity style={styles.checkboxContainer} onPress={() => setStayConnected(!stayConnected)}>
             <View style={[styles.checkbox, stayConnected && styles.checkboxChecked]} />
-            <Text style={styles.checkboxLabel}>Resté connecté</Text>
+            <Text style={styles.checkboxLabel}>Rester connecté</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleForgotPassword}>
             <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
