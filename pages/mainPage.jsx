@@ -8,6 +8,7 @@ import Login from '../Login-Register/Login';
 const MainPage = ({ route }) => {
   const mapRef = useRef(null);
   const userId = route.params.id;
+  
   const centerMap = () => {
     console.log('Attempting to center map on user location...');
     mapRef.current?.centerOnUserLocation();

@@ -48,8 +48,9 @@ function Register({ navigation }) {
         lastName,
       });
       Alert.alert("Succès", "Inscription réussie!", [
-        { text: "OK", onPress: () => navigation.navigate("MainPage") },
+        { text: "OK", onPress: () => navigation.navigate("MainPage", { id: credential.user.uid }) },
       ]);
+      
     } catch (error) {
       Alert.alert("Erreur", error.message);
     }
