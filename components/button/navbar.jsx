@@ -111,7 +111,6 @@ export function NavBar({ onCenterPress, userId }) {
           <MenuButton property1={activeButton === 'MenuButton' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
         <Modal
-
     animationType="slide"
     transparent={true}
     visible={modalVisible2}
@@ -126,10 +125,10 @@ export function NavBar({ onCenterPress, userId }) {
     />
 
     {/* Contenu du modal */}
-    <View style={styles.centerModal}>
+    <View {...panResponder.panHandlers} style={styles.centerModal}>
         <View style={[styles.modalView, {height:"95%"}]}>
-            {/* Ici, appliquez le panResponder à la barre d'en-tête */}
-            <View {...panResponder.panHandlers} style={styles.header}>
+            {/* La barre d'en-tête */}
+            <View style={styles.header}>
                 <Text style={styles.modalText}>Offres</Text>
                 <Pressable style={{width:35}} onPress={() => {setModalVisible2(false); setActiveButton('')}}>
                     <Image source={Croix} style={{width: 20, height: 20}} />
@@ -139,6 +138,7 @@ export function NavBar({ onCenterPress, userId }) {
         </View>
     </View>
 </Modal>
+
 
 
 
