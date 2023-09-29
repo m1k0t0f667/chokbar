@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { Dimensions } from 'react-native';
 import { StyleSheet, View, TouchableOpacity, Modal, Text, Pressable, Image, ScrollView } from 'react-native';
 import { Color, FontFamily, FontSize } from '../../GlobalStyles';
-import Croix from "../../assets/Croix1.png";
 import OffreBar from "../button/infobar";
 import * as Font from 'expo-font';
+
+const screenWidth = Dimensions.get('window').width;
 
 async function loadFonts() {
   await Font.loadAsync({
@@ -18,14 +20,12 @@ export default function Offre() {
   const [selectedBar, setSelectedBar] = useState(null);
 
   const bars = [
-    { name: 'Exemple de bar', offer: 'Exemple d’offre', rating: 4.1, image: 'bar1' },
-    { name: 'test1', offer: 'Offre 1', rating: 4.2, image: 'bar2' },
-    { name: 'test2', offer: 'Offre 2', rating: 4.3, image: 'bar3' },
-    { name: 'test3', offer: 'Offre 3', rating: 4.4, image: 'bar4' },
-    { name: 'test4', offer: 'Offre 4', rating: 4.5, image: 'bar1' },
-    { name: 'test5', offer: 'Offre 5', rating: 4.6, image: null },
-    { name: 'test6', offer: 'Offre 6', rating: 4.7, image: null },
-    { name: 'test7', offer: 'Offre 7', rating: 4.8, image: null },
+    { name: 'Manneken-Pis', offer: 'Happy hour = 00h00', rating: 4.1, image: 'bar1' },
+    { name: "L'Abreuvoir", offer: 'Un shooter offert', rating: 4.2, image: 'bar2' },
+    { name: 'Boston Tavern', offer: 'Une boisson mystère', rating: 4.3, image: 'bar3' },
+    { name: 'La Taverne du Perroquet', offer: "Pinte offerte = 20€ d'achat", rating: 4.4, image: 'bar4' },
+    { name: 'Les poupées russes', offer: 'Shooter offert', rating: 4.5, image: 'bar5' },
+    { name: "Le Gump's", offer: 'Un demi offert', rating: 4.6, image: 'bar6' },
   ];
 
   const getImage = (imageName) => {
@@ -38,6 +38,10 @@ export default function Offre() {
         return require('../../assets/bar3.jpg');
       case 'bar4':
         return require('../../assets/bar4.jpg');
+      case 'bar5':
+        return require('../../assets/bar5.jpg');
+      case 'bar6':
+        return require('../../assets/bar6.jpg');
       default:
         return null;
     }
@@ -49,7 +53,7 @@ export default function Offre() {
   };
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1, overflow: 'visible' }}>
       {bars.map((bar, index) => (
         <TouchableOpacity key={index} onPress={() => handleBarClick(bar)} style={{ ...styles.root, ...styles.clickable }}>
           <View style={styles.rectangle10}>
@@ -83,11 +87,10 @@ export default function Offre() {
             <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", width: "100%", marginBottom: 15 }}>
               <Text style={styles.modalText}>Offre de {selectedBar?.name}</Text>
               <Pressable style={{ width: 35 }} onPress={() => setModalVisible(false)}>
-                <Image source={Croix} style={{ width: 20, height: 20 }} />
               </Pressable>
             </View>
             <Image source={getImage(selectedBar?.image)} style={styles.modalImage} />
-            <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingBottom: 300 }}>
+            <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingBottom: 230 }}>
               {selectedBar && <OffreBar barDetails={selectedBar} />}
             </View>
           </View>
@@ -99,7 +102,7 @@ export default function Offre() {
 
 const styles = StyleSheet.create({
   root: {
-    width: 338,
+    width: screenWidth - 30, 
     height: 160,
     backgroundColor: '#FDFDFD',
     borderRadius: 15,
@@ -196,7 +199,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   modalText: {
     fontSize: FontSize.medium,
@@ -208,9 +211,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 15,
     marginTop: 15,
-    marginLeft: -15,  
-    marginRight: 15,
+    marginLeft: -20,
   },
+  
   
 });
 
