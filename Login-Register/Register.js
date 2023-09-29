@@ -35,6 +35,7 @@ function Register({ navigation }) {
         email,
         firstName,
         lastName,
+        points: [],
       });
       Alert.alert("Succès", "Inscription réussie!", [
         { text: "OK", onPress: () => navigation.navigate("Login") },
