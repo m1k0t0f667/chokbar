@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import { StyleSheet, View, StatusBar, Image, Animated } from 'react-native';
+import { StyleSheet, View, StatusBar, Image, Animated, Text } from 'react-native';
+
 
 export default function Anim({onDone}) {
   const leftBeerAnim = useRef(new Animated.Value(0)).current;
@@ -86,6 +87,7 @@ export default function Anim({onDone}) {
           { rotate: rightBeerRotate.interpolate({ inputRange: [0, 1], outputRange: ['-2deg', '-29deg'] }) }
         ]
       }}>
+         
         <Image source={require('./assets/rightBeer.png')} style={styles.beerImage} />
       </Animated.View>
       <View style={styles.goutteContainer}>
@@ -99,6 +101,9 @@ export default function Anim({onDone}) {
           <Image source={require('./assets/goutte_droite.png')} style={styles.goutteImage} />
         </Animated.View>
       </View>
+      <View style={styles.warningTextContainer}>
+      <Text style={styles.warningText}>L'abus d'alcool est dangereux pour la santé, à consommer avec modération</Text>
+    </View>
     </View>
   );
 }
@@ -144,5 +149,19 @@ const styles = StyleSheet.create({
     width: 30,
     height: 60,
     resizeMode: 'contain',
+  },
+  warningTextContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20
+  },
+  warningText: {
+    fontSize: 12,
+    color: 'black',
+    textAlign: 'center'
   }
 });

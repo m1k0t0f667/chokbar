@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View,Image } from 'react-native'
 import React from 'react'
 import { Modal,Pressable } from 'react-native'
-import Croix from "../../assets/Croix1.png"
 
 const ModalBase = ({height,title,children}) => {
     const [modalVisible, setModalVisible] = React.useState(false);
@@ -20,9 +19,9 @@ const ModalBase = ({height,title,children}) => {
         <View style={styles.centerModal}>
           <View style={[styles.modalView,{height:height}]}>
             
-            <View style={{display:"inline-flex",flexDirection:"row", justifyContent:"flex-end",alignItems: "flex-start",width:"100%",gap:125}}>
+            <View style={{display:"inline-flex", justifyContent:"center",width:"100%",gap:125}}>
                 <Text style={styles.modalText}>{title}</Text>
-                <Pressable style={{width:35}} onPress={() => setModalVisible(!modalVisible)}><Image source={Croix} style={{width: 20,height: 20}}></Image></Pressable>
+                <Pressable style={{width:35}} onPress={() => setModalVisible(!modalVisible)}></Pressable>
                 </View>
             <View>{children}</View>
           </View>

@@ -1,11 +1,14 @@
 import React, {useState} from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, } from "expo-status-bar";
+import { StyleSheet, Text, View, LogBox } from "react-native";
 import { useFonts } from "expo-font";
 import Anim from "./Anim";
 
 import Routes from "./routes";
 import QrcodePage from "./pages/qrcode";
+
+LogBox.ignoreAllLogs();
+
 
 export default function App() {
   const [fontsLoaded, error] = useFonts({

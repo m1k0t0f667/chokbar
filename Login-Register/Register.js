@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
-import * as Font from 'expo-font';
-import { View, TextInput, TouchableOpacity, Text, Alert, StyleSheet, Image } from "react-native";
+import * as Font from "expo-font";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  Alert,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import emailIcon from "../assets/emailIcon.png";
@@ -20,7 +28,7 @@ function Register({ navigation }) {
   useEffect(() => {
     async function loadFont() {
       await Font.loadAsync({
-        'BungeeShade-Regular': require('../assets/fonts/BungeeShade-Regular.ttf')
+        "BungeeShade-Regular": require("../assets/fonts/BungeeShade-Regular.ttf"),
       });
       setFontLoaded(true);
     }
@@ -29,11 +37,15 @@ function Register({ navigation }) {
 
   const register = async () => {
     try {
-      const credential = await createUserWithEmailAndPassword(auth, email, password);
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       await setDoc(doc(db, "users", credential.user.uid), {
         email,
         firstName,
-        lastName
+        lastName,
       });
       Alert.alert("Succès", "Inscription réussie!", [
         { text: "OK", onPress: () => navigation.navigate("MainPage") },
@@ -51,17 +63,41 @@ function Register({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.registerTitle}>Inscription</Text>
       <View style={styles.content}>
-        <TextInput style={[styles.input, styles.genericInput]} placeholder="Votre prénom" value={firstName} onChangeText={setFirstName} />
-        <TextInput style={[styles.input, styles.genericInput]} placeholder="Votre nom" value={lastName} onChangeText={setLastName} />
+        <TextInput
+          style={[styles.input, styles.genericInput]}
+          placeholder="Votre prénom"
+          value={firstName}
+          onChangeText={setFirstName}
+        />
+        <TextInput
+          style={[styles.input, styles.genericInput]}
+          placeholder="Votre nom"
+          value={lastName}
+          onChangeText={setLastName}
+        />
         <View style={styles.inputIconContainer}>
           <Image source={emailIcon} style={styles.icon} />
-          <TextInput style={styles.inputEmail} placeholder="Email" value={email} onChangeText={setEmail} />
+          <TextInput
+            style={styles.inputEmail}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
         <View style={styles.inputIconContainer}>
           <Image source={lockIcon} style={styles.icon} />
-          <TextInput style={styles.inputPassword} placeholder="Mot de passe" value={password} onChangeText={setPassword} secureTextEntry={hidePassword} />
+          <TextInput
+            style={styles.inputPassword}
+            placeholder="Mot de passe"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={hidePassword}
+          />
           <TouchableOpacity onPress={() => setHidePassword(!hidePassword)}>
-            <Image source={hidePassword ? eyeOffIcon : eyeIcon} style={styles.icon} />
+            <Image
+              source={hidePassword ? eyeOffIcon : eyeIcon}
+              style={styles.icon}
+            />
           </TouchableOpacity>
         </View>
         <Text style={styles.termsText}>
@@ -76,7 +112,12 @@ function Register({ navigation }) {
       </View>
       <View style={styles.footerContainer}>
         <Text style={styles.alreadyRegisteredText}>Déjà inscrit ?</Text>
-        <Text style={styles.loginText} onPress={() => navigation.navigate("Login")}>Connexion</Text>
+        <Text
+          style={styles.loginText}
+          onPress={() => navigation.navigate("Login")}
+        >
+          Connexion
+        </Text>
       </View>
     </View>
   );
@@ -169,12 +210,11 @@ const styles = StyleSheet.create({
 
   registerTitle: {
     fontSize: 28,
-    color: '#312E49',
-    fontFamily: 'BungeeShade-Regular',
-    alignSelf: 'center',
+    color: "#312E49",
+    fontFamily: "BungeeShade-Regular",
+    alignSelf: "center",
     marginBottom: 20,
   },
-
 });
 
 export default Register;

@@ -6,7 +6,6 @@ import QrcodeText from '../qrcode/qrcodeText';
 import Hot from '../button/hot';
 import Center from '../button/center';
 import { Qrcode } from './qrcodeButton';
-import Croix from "../../assets/Croix1.png"
 import Menu from '../../pages/menu';
 import { useFonts } from 'expo-font';
 import Offres from '../../pages/offres';
@@ -65,7 +64,6 @@ export function NavBar({ onCenterPress, userId }) {
                 <View style={styles.header}>
                     <Text style={styles.modalText}>Légende</Text>
                     <Pressable style={{width:35}} onPress={() => {setModalVisible(!modalVisible), setActiveButton('')}}>
-                        <Image source={Croix} style={{width: 20,height: 20}}></Image>
                     </Pressable>
                 </View>
                 <View><Text><LegendeDesc/></Text></View>
@@ -98,7 +96,6 @@ export function NavBar({ onCenterPress, userId }) {
                 <View style={styles.header}>
                     <Text style={styles.modalText}>Menu</Text>
                     <Pressable style={{width:35}} onPress={() => {setModalVisible1(false), setActiveButton('')}}>
-                        <Image source={Croix} style={{width: 20,height: 20}}></Image>
                     </Pressable>
                 </View>
                 <View><Menu/></View>
@@ -111,7 +108,6 @@ export function NavBar({ onCenterPress, userId }) {
           <MenuButton property1={activeButton === 'MenuButton' ? "Active" : "Unactive"}/>
         </TouchableOpacity>
         <Modal
-
     animationType="slide"
     transparent={true}
     visible={modalVisible2}
@@ -126,19 +122,19 @@ export function NavBar({ onCenterPress, userId }) {
     />
 
     {/* Contenu du modal */}
-    <View style={styles.centerModal}>
+    <View {...panResponder.panHandlers} style={styles.centerModal}>
         <View style={[styles.modalView, {height:"95%"}]}>
-            {/* Ici, appliquez le panResponder à la barre d'en-tête */}
-            <View {...panResponder.panHandlers} style={styles.header}>
+            {/* La barre d'en-tête */}
+            <View style={styles.header}>
                 <Text style={styles.modalText}>Offres</Text>
                 <Pressable style={{width:35}} onPress={() => {setModalVisible2(false); setActiveButton('')}}>
-                    <Image source={Croix} style={{width: 20, height: 20}} />
                 </Pressable>
             </View>
             <Offres/>
         </View>
     </View>
 </Modal>
+
 
 
 
@@ -165,7 +161,6 @@ export function NavBar({ onCenterPress, userId }) {
                 <View style={styles.header}>
                     <Text style={styles.modalText}>Qrcode</Text>
                     <Pressable style={{width:35}} onPress={() => {setModalVisible3(false), setActiveButton('')}}>
-                        <Image source={Croix} style={{width: 20,height: 20}}></Image>
                     </Pressable>
                 </View>
                 <QrcodeText userId={userId} /> 
@@ -253,21 +248,16 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    justifyContent: 'center',
     fontFamily:"Bungee-Shade",
     fontSize:30
   },
 
   header:{
     display:"flex",
-    flexDirection:"row",
-    justifyContent:"space-between",
-    paddingLeft:50,
-    alignItems: "baseline",
+    justifyContent:"center",
+    alignItems: "center",
     width:"100%"},
-
-    contentWrapper: {
-      marginLeft: 40, 
-    },
 
     fideliteButtonWrapper: {
       marginTop: 20, 
