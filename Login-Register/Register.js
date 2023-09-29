@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import * as Font from "expo-font";
 import {
   View,
   TextInput,
@@ -10,7 +11,6 @@ import {
 } from "react-native";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
 import emailIcon from "../assets/emailIcon.png";
 import lockIcon from "../assets/lock.png";
 import eyeOffIcon from "../assets/eye-off.png";
@@ -23,6 +23,17 @@ function Register({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        "BungeeShade-Regular": require("../assets/fonts/BungeeShade-Regular.ttf"),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+  }, []);
 
   const register = async () => {
     try {
@@ -35,18 +46,22 @@ function Register({ navigation }) {
         email,
         firstName,
         lastName,
-        points: [],
       });
       Alert.alert("Succès", "Inscription réussie!", [
-        { text: "OK", onPress: () => navigation.navigate("Login") },
+        { text: "OK", onPress: () => navigation.navigate("MainPage") },
       ]);
     } catch (error) {
       Alert.alert("Erreur", error.message);
     }
   };
 
+  if (!fontLoaded) {
+    return null; // Vous pouvez choisir d'afficher un écran de chargement ou un spinner ici si vous le souhaitez.
+  }
+
   return (
     <View style={styles.container}>
+      <Text style={styles.registerTitle}>Inscription</Text>
       <View style={styles.content}>
         <TextInput
           style={[styles.input, styles.genericInput]}
@@ -191,6 +206,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF",
     fontSize: 14,
+  },
+
+  registerTitle: {
+    fontSize: 28,
+    color: "#312E49",
+    fontFamily: "BungeeShade-Regular",
+    alignSelf: "center",
+    marginBottom: 20,
   },
 });
 

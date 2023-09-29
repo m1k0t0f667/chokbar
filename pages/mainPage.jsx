@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useRef, useState , useEffect } from 'react';
 import { StyleSheet, View } from "react-native";
 import { NavBar } from "../components/button/navbar";
 import Map from '../Map';
 import Register from '../Login-Register/Register';
 import Login from '../Login-Register/Login';
 
-const MainPage = () => {
+const MainPage = ({ route }) => {
+  const mapRef = useRef(null);
+  const userId = route.params.id;
+  const centerMap = () => {
+    console.log('Attempting to center map on user location...');
+    mapRef.current?.centerOnUserLocation();
+  };
+  
   return (
     <View style={styles.container}>
-      <Map />
+      <Map mapRef={mapRef} />
       <View style={styles.navBarContainer}>
-        <NavBar />
+        <NavBar onCenterPress={centerMap} userId={userId} />      
       </View>
       <View style={styles.buttonContainer}>
       </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
