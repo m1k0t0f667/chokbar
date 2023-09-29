@@ -208,8 +208,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 15,
     marginTop: 15,
-    marginLeft: 15,
+    marginLeft: -15,  
     marginRight: 15,
   },
+  
 });
 
