@@ -24,7 +24,7 @@ function Menu() {
           <Text style={styles.mentionsLegales}>Mentions légales</Text>
         </View>
         <View style={styles.menuItem4}>
-          <Pressable onPress={() => navigation.navigate('AdminPage')}><Text>Admin</Text></Pressable>
+         
           <Cgu width={20} height={20} />
           <Text style={styles.conditionsGenerales}>Conditions générales</Text>
         </View>
